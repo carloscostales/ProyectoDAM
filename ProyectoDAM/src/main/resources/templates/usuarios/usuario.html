@@ -1,0 +1,26 @@
+<html>
+	<head>
+	    <title>Vista de Usuario</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+		
+		<h1 class="text-center mt-3" th:text="${usuario.nombreUsuario}"> </h1>
+		
+		<div class="container">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item list-group-item-action"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
+				<li class="list-group-item list-group-item-action"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
+				<li class="list-group-item list-group-item-action"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
+			</ul>
+		</div>
+		
+	</body>
+</html>

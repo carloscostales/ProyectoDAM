@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+	    <title>Lista usuarios</title>
+	
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>  
+
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+
+	    <div class="container text-center">
+	    	<h1>USUARIOS</h1>
+	    	
+			<table class="table">
+			    <thead>
+			        <tr>
+			            <th> Nombre de usuario</th>
+			            <th> Email </th>
+			            <th> Nombre completo </th>
+			        </tr>
+			    </thead>
+			    <tbody>
+				<tr th:if="${usuarios.empty}">
+			        <td colspan="3"> No hay usuarios </td>
+			    </tr>
+			        <tr th:each="usuarioLista : ${usuarios}">
+			            <td><span th:text="${usuarioLista.nombreUsuario}"> nombre de usuario </span></td>
+			            <td><span th:text="${usuarioLista.email}"> email </span></td>
+			            <td><span th:text="${usuarioLista.getNombreCompleto()}"> nombre completo</span></td>
+			        </tr>
+			    </tbody>
+			</table>
+			
+			<a th:href="@{/}">Volver al inicio</a>
+			
+	    </div>
+	</body>
+</html>

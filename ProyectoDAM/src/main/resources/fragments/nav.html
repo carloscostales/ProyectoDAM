@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" th:href="@{/}">LOGO</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      	<ul class="navbar-nav mr-auto">
+        	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+        		<a class="nav-link" th:href="@{/}">Inicio</a>
+          	</li>
+         	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/usuarios/listaUsuarios' ? 'active':''}">
+           		<a class="nav-link" th:href="@{/usuarios/listaUsuarios}">Lista de usuarios</a>
+          	</li>
+        </ul>
+       
+        <div class="text-white" sec:authorize="isAnonymous()">
+		    <a type="button" class="btn btn-primary" th:href="@{/login}">Login</a>
+		    <a type="button" class="btn btn-light" th:href="@{/usuarios/registro}">Registrarse</a>
+		</div>
+    	
+    	<div class="text-white" sec:authorize="isAuthenticated()">
+    		<a type="button" class="btn btn-primary" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+		    <!--  User: <span sec:authentication="name">miquel</span> -->
+		    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
+		</div>
+	</div>
+</nav>
