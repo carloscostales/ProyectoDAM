@@ -13,6 +13,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
 	@Override
 	public void add(Usuario usuario) {
 		
@@ -26,19 +27,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
-	public void deleteById(String usuario_id) {
+	public void deleteById(String nombreUsuario) {
 		
-		usuarioDAO.deleteById(usuario_id);
+		usuarioDAO.deleteById(nombreUsuario);
 	}
 
 	@Override
-	public List<Usuario> listaUsuarios() {
+	public List<Usuario> todosUsuarios() {
 		
-		return (List<Usuario>) usuarioDAO.findAll();
-	}
-
-	@Override
-	public List<Usuario> findAll() {
 		return (List<Usuario>) usuarioDAO.findAll();
 	}
 }

@@ -10,9 +10,7 @@ public interface UsuarioService {
 	
 	public void delete(Usuario usuario);
 	
-	public void deleteById(String usuario_id);
+	public void deleteById(String nombreUsuario);
 	
-	public List<Usuario> listaUsuarios();
-	
-	public List<Usuario> findAll();
+	public List<Usuario> todosUsuarios();
 }

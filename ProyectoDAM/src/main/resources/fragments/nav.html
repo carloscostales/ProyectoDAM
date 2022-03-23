@@ -12,6 +12,9 @@
          	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/usuarios/listaUsuarios' ? 'active':''}">
            		<a class="nav-link" th:href="@{/usuarios/listaUsuarios}">Lista de usuarios</a>
           	</li>
+          	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/generos/listaGeneros' ? 'active':''}">
+           		<a class="nav-link" th:href="@{/generos/listaGeneros}">Lista de géneros</a>
+          	</li>
         </ul>
        
         <div class="text-white" sec:authorize="isAnonymous()">

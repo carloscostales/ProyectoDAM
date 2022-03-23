@@ -24,7 +24,7 @@ import com.carlos.service.UsuarioService;
 public class UsuarioController {
 	
 	@Autowired
-	public UsuarioService usuarioService;
+	private UsuarioService usuarioService;
 	
 	@GetMapping("/{usuario}")
 	public ModelAndView usuario(@PathVariable Usuario usuario) {
@@ -39,7 +39,7 @@ public class UsuarioController {
 	public ModelAndView listaUsuarios(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/listaUsuarios");
-		List<Usuario> lista = (List<Usuario>) usuarioService.findAll();
+		List<Usuario> lista = (List<Usuario>) usuarioService.todosUsuarios();
 		
 		mav.addObject("usuarios", lista);
 		
@@ -78,7 +78,7 @@ public class UsuarioController {
 		
 		usuarioService.add(usuario);
 		
-		mav.setViewName("index");
+		mav.setViewName("redirect:/");
 		
 		return mav;
 	}

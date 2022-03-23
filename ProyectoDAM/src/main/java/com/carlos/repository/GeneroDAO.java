@@ -3,9 +3,9 @@ package com.carlos.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.carlos.model.Rol;
+import com.carlos.model.Genero;
 
 @Repository
-public interface RolDAO extends CrudRepository<Rol, String> {
+public interface GeneroDAO extends CrudRepository<Genero, String>  {
 
 }
