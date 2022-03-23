@@ -19,36 +19,34 @@
 			<h1 class="text-center">NUEVO USUARIO</h1>
 			
 			<form action="#" th:action="@{/usuarios/addUsuario}" th:object="${usuario}" method="post">
-				<div class="form-group">
-					<div class="form-group">
-					    <label for="nombreUsuario">Nombre de usuario</label>
-					    <input type="text" class="form-control" th:field="*{nombreUsuario}" id="nombreUsuario" placeholder="Nombre de usuario">
-						<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></small>
-					</div>
-					
-					<div class="form-group">
-				    	<label for="contrasena">Contraseña</label>
-				    	<input type="password" class="form-control" th:field="*{contrasena}" id="contrasena" placeholder="Contraseña">
-				    	<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></small>
-				  	</div>
+				<div class="mb-3">
+				    <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+				    <input type="text" class="form-control" th:field="*{nombreUsuario}" id="nombreUsuario" placeholder="Nombre de usuario">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></small>
+				</div>
+				
+				<div class="mb-3">
+				   	<label for="contrasena" class="form-label">Contraseña</label>
+				   	<input type="password" class="form-control" th:field="*{contrasena}" id="contrasena" placeholder="Contraseña">
+				   	<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></small>
+				</div>
+				 	
+				<div class="mb-3">
+				   	<label for="email" class="form-label">Email</label>
+				   	<input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+				   	<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+				</div>
 				  	
-				  	<div class="form-group">
-				    	<label for="email">Email</label>
-				    	<input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email">
-				    	<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-				  	</div>
-				  	
-				  	<div class="form-group">
-					    <label for="nombre">Nombre</label>
-					    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
-					    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-					</div>
+				<div class="mb-3">
+				    <label for="nombre" class="form-label">Nombre</label>
+				    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
 					
-					<div class="form-group">
-					    <label for="apellidos">Apellidos</label>
-					    <input type="text" class="form-control" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos">
-					    <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
-					</div>
+				<div class="mb-3">
+				    <label for="apellidos" class="form-label">Apellidos</label>
+				    <input type="text" class="form-control" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
 				</div>
 				
 				<button type="submit" class="btn btn-success">Registrarse</button>

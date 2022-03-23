@@ -19,19 +19,16 @@
 			<h1 class="text-center">NUEVO GÉNERO</h1>
 			
 			<form action="#" th:action="@{/generos/addGenero}" th:object="${genero}" method="post">
-				<div class="form-group">
-				
-				  	<div class="form-group">
-					    <label for="codigo">Código</label>
-					    <input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código">
-					    <small class="form-text text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
-					</div>
+				<div class="mb-3">
+					<label for="codigo" class="form-label">Código</label>
+					<input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
+				</div>
 					
-					<div class="form-group">
-					    <label for="nombre">Nombre del género</label>
-					    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
-					    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-					</div>
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre del género</label>
+				    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 				</div>
 				
 				<button type="submit" class="btn btn-success">Adelante</button>

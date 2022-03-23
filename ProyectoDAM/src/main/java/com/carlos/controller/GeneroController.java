@@ -63,7 +63,12 @@ public class GeneroController {
 		
 		if(bindingResult.hasErrors()) {
 			mav.setViewName("generos/nuevoGenero");
-
+			
+			if(auth != null) {
+				Usuario usuario = (Usuario) auth.getPrincipal();
+				mav.addObject("usuario", usuario);
+			}
+			
 			return mav;
 		}
 		

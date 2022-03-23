@@ -17,13 +17,14 @@
 	            <h1 class="h3 mb-3 font-weight-normal">Identifícate</h1>
 	            
 				<p th:if="${loginError}" class="text-danger"> Credenciales erróneas </p>
-	            
-				<label for="inputUser" class="sr-only">Nombre usuario</label>
-				<input type="text" name="username"  id="inputUser" class="form-control" placeholder="Usuario" required autofocus>
-	
-				<label for="inputPassword" class="sr-only">Contraseña</label>
-				<input type="password" name="password" id="inputPassword" class="form-control mb-4" placeholder="Contraseña" required>
-	
+	            <div class="mb-3">
+					<label for="inputUser" class="sr-only form-label">Nombre usuario</label>
+					<input type="text" name="username"  id="inputUser" class="form-control" placeholder="Usuario" required autofocus>
+				</div>
+				<div class="mb-3">
+					<label for="inputPassword" class="sr-only form-label">Contraseña</label>
+					<input type="password" name="password" id="inputPassword" class="form-control mb-4" placeholder="Contraseña" required>
+				</div>
 				<input type="submit" value="Iniciar sesión" class="btn btn-lg btn-info btn-block" >
 				<a class="btn btn-lg btn-secondary btn-block" th:href="@{/}" role="button">Volver</a>
 			

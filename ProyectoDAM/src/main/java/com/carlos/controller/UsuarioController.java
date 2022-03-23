@@ -26,7 +26,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/{usuario}")
+	@GetMapping("/ver/{usuario}")
 	public ModelAndView usuario(@PathVariable Usuario usuario) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/usuario");
