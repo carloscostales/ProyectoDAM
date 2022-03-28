@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Nuevo autor</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+	
+   		<nav th:replace="../fragments/nav.html :: nav"></nav>
+	    
+	    <section class="container my-5">
+			
+			<h1 class="text-center">NUEVO AUTOR</h1>
+			
+			<form action="#" th:action="@{/autor/addAutor}" th:object="${autor}" method="post">
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre</label>
+					<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+					
+				<div class="mb-3">
+					<label for="pais" class="form-label">Pais</label>
+				    <input type="text" class="form-control" th:field="*{pais}" id="pais" placeholder="Pais">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+				    <input type="date" class="form-control" th:field="*{fechaNacimiento}" id="fechaNacimiento" placeholder="Fecha de nacimiento">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>
+				</div>
+				
+				<button type="submit" class="btn btn-success">Adelante</button>
+			</form>
+			
+		</section>
+		
+	</body>
+</html>

@@ -23,6 +23,11 @@
 						Lista de géneros
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/autor/autores}" th:classappend="${#httpServletRequest.getRequestURI() == '/autor/autores' ? 'active':''}">
+						Lista de autores
+					</a>
+				</li>
 			</ul>
 			
 			<div class="text-white" sec:authorize="isAnonymous()">

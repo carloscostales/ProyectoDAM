@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Lista de autores</title>
+	
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>  
+
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+
+	    <div class="container text-center">
+	    	
+	    	<div sec:authorize="isAuthenticated()">
+	    		<a class="btn btn-primary float-end" th:href="@{/autor/nuevoAutor}">Nuevo autor</a>
+	    	</div>
+	    	<h1 class="mt-3">AUTORES</h1>
+	    	
+			<table class="table table-hover">
+			    <thead>
+			        <tr>
+			            <th scope="col"> Nombre </th>
+			            <th scope="col"> País </th>
+			            <th scope="col"> Fecha de nacimiento </th>
+			            <th scope="col"> </th>
+			        </tr>
+			    </thead>
+			    <tbody>
+				<tr th:if="${autores.empty}">
+			        <td colspan="100%"> No hay autores </td>
+			    </tr>
+			        <tr th:each="autor: ${autores}">
+			            <td><span th:text="${autor.nombre}"> nombre </span></td>
+			            <td><span th:text="${autor.pais}"> pais </span></td>
+			            <td><span th:text="${autor.fechaNacimiento}"> fecha</span></td>
+			            <td><a type="button" class="btn btn-primary" th:href="@{/autor/ver/{autor}(autor=${autor.id})}">Ver</a></td>
+			        </tr>
+			    </tbody>
+			</table>
+			
+			<a th:href="@{/autor/autores}">Volver al inicio</a>
+			
+	    </div>
+	</body>
+</html>
