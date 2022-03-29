@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light py-4">
+<nav class="navbar navbar-expand-lg navbar-light py-4">
 	<div class="container-fluid">
 		<a class="navbar-brand" th:href="@{/}">LOGO</a>
 		
@@ -14,12 +14,12 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/usuarios/listaUsuarios}" th:classappend="${#httpServletRequest.getRequestURI() == '/usuarios/listaUsuarios' ? 'active':''}">
+					<a class="nav-link" th:href="@{/usuario/usuarios}" th:classappend="${#httpServletRequest.getRequestURI() == '/usuario/usuarios' ? 'active':''}">
 						Lista de usuarios
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/generos/listaGeneros}" th:classappend="${#httpServletRequest.getRequestURI() == '/generos/listaGeneros' ? 'active':''}">
+					<a class="nav-link" th:href="@{/genero/generos}" th:classappend="${#httpServletRequest.getRequestURI() == '/genero/generos' ? 'active':''}">
 						Lista de géneros
 					</a>
 				</li>
@@ -32,11 +32,11 @@
 			
 			<div class="text-white" sec:authorize="isAnonymous()">
 				<a type="button" class="btn btn-primary" th:href="@{/login}">Login</a>
-				<a type="button" class="btn btn-light" th:href="@{/usuarios/registro}">Registrarse</a>
+				<a type="button" class="btn btn-light text-dark" th:href="@{/usuario/registro}">Registrarse</a>
 			</div>
 
     		<div class="text-white" sec:authorize="isAuthenticated()">
-    			<a type="button" class="btn btn-primary" th:href="@{/usuarios/ver/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+    			<a type="button" class="btn btn-primary" th:href="@{/usuario/ver/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
 				
 				<!--  User: <span sec:authentication="name">miquel</span> -->
 				<a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>

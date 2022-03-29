@@ -20,25 +20,17 @@ import com.carlos.model.Usuario;
 import com.carlos.service.UsuarioService;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/ver/{usuario}")
-	public ModelAndView usuario(@PathVariable Usuario usuario) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("usuarios/usuario");
-		mav.addObject("usuario", usuario);
-		
-		return mav;
-	}
 
-	@GetMapping("/listaUsuarios")
-	public ModelAndView listaUsuarios(Authentication auth) {
+	@GetMapping("/usuarios")
+	public ModelAndView usuarios(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("usuarios/listaUsuarios");
+		mav.setViewName("usuario/usuarios");
 		List<Usuario> lista = (List<Usuario>) usuarioService.todosUsuarios();
 		
 		mav.addObject("usuarios", lista);
@@ -51,10 +43,19 @@ public class UsuarioController {
 		return mav;
 	}
 	
+	@GetMapping("/ver/{usuario}")
+	public ModelAndView usuario(@PathVariable Usuario usuario) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("usuario/verUsuario");
+		mav.addObject("usuario", usuario);
+		
+		return mav;
+	}
+
 	@GetMapping("/registro")
 	public ModelAndView registro() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("usuarios/registro");
+		mav.setViewName("usuario/registro");
 		
 		Usuario usuario = new Usuario();
 		mav.addObject("usuario", usuario);
@@ -68,7 +69,7 @@ public class UsuarioController {
 		ModelAndView mav = new ModelAndView();
 		
 		if(bindingResult.hasErrors()) {
-			mav.setViewName("usuarios/registro");
+			mav.setViewName("usuario/registro");
 			
 			return mav;
 		}

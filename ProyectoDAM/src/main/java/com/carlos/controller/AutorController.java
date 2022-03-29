@@ -26,6 +26,7 @@ public class AutorController {
 	@Autowired
 	private AutorServicio autorService;
 	
+	
 	@GetMapping("/autores")
 	public ModelAndView autores(Authentication auth) {
 		ModelAndView mav = new ModelAndView();

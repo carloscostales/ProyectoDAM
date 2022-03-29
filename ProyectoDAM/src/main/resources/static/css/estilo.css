@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+
+
+/* VARIABLES */
+:root {
+  	--main: #2D2424;
+	--secondary: #5C3D2E;
+}
+
+
+/* OVERRIDES BOOTSTRAP */
+bg-primary{
+	color: #5C3D2E;
+}
+
+
+/* PROYECTO */
+html * {
+	font-family: 'Asap', sans-serif;
+   	color: white !important;
+   	
+}
+
+body {
+	background-color: var(--main);
+}
+
+.navbar {
+	background-color: var(--secondary);}
+
+.active{
+	color: #DFDFDE !important;
+}

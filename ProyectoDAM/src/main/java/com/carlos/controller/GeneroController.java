@@ -19,16 +19,17 @@ import com.carlos.model.Usuario;
 import com.carlos.service.GeneroService;
 
 @Controller
-@RequestMapping("/generos")
+@RequestMapping("/genero")
 public class GeneroController {
 
 	@Autowired
 	private GeneroService generoService;
 	
-	@GetMapping("/listaGeneros")
-	public ModelAndView listarGeneros(Authentication auth) {
+	
+	@GetMapping("/generos")
+	public ModelAndView generos(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("generos/listaGeneros");
+		mav.setViewName("genero/generos");
 		
 		List<Genero> generos = generoService.todosGeneros();
 		mav.addObject("generos", generos);
@@ -44,7 +45,7 @@ public class GeneroController {
 	@GetMapping("/nuevoGenero")
 	public ModelAndView nuevoGenero(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("generos/nuevoGenero");
+		mav.setViewName("genero/nuevoGenero");
 		
 		Genero genero = new Genero();
 		mav.addObject("genero", genero);
@@ -62,7 +63,7 @@ public class GeneroController {
 		ModelAndView mav = new ModelAndView();
 		
 		if(bindingResult.hasErrors()) {
-			mav.setViewName("generos/nuevoGenero");
+			mav.setViewName("genero/nuevoGenero");
 			
 			if(auth != null) {
 				Usuario usuario = (Usuario) auth.getPrincipal();
@@ -74,7 +75,7 @@ public class GeneroController {
 		
 		generoService.add(genero);
 		
-		mav.setViewName("redirect:/generos/listaGeneros");
+		mav.setViewName("redirect:/genero/generos");
 		
 		return mav;
 	}
