@@ -16,14 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Genero;
 import com.carlos.model.Usuario;
-import com.carlos.service.GeneroService;
+import com.carlos.service.IGeneroService;
 
 @Controller
 @RequestMapping("/genero")
 public class GeneroController {
 
 	@Autowired
-	private GeneroService generoService;
+	private IGeneroService generoService;
 	
 	
 	@GetMapping("/generos")

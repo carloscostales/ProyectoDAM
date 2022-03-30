@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Autor;
 import com.carlos.model.Libro;
 import com.carlos.model.Usuario;
-import com.carlos.service.GeneroServiceImpl;
+import com.carlos.service.IGeneroService;
 import com.carlos.service.ILibroService;
 
 @Controller
@@ -27,7 +27,7 @@ public class LibroController {
 	private ILibroService libroService;
 	
 	@Autowired
-	private GeneroServiceImpl generoService;
+	private IGeneroService generoService;
 
 
 	@GetMapping("/libros")

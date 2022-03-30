@@ -2,15 +2,40 @@ package com.carlos.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.carlos.model.Genero;
+import com.carlos.repository.GeneroDAO;
 
-public interface GeneroService {
+@Service
+public class GeneroService implements IGeneroService {
+	
+	@Autowired
+	private GeneroDAO generoDAO; 
 
-	public void add(Genero genero);
+	@Override
+	public void add(Genero genero) {
+		
+		generoDAO.save(genero);
+	}
+
+	@Override
+	public void delete(Genero genero) {
+		
+		generoDAO.delete(genero);
+	}
+
+	@Override
+	public void deleteById(String codGenero) {
+		
+		generoDAO.deleteById(codGenero);
+	}
+
+	@Override
+	public List<Genero> todosGeneros() {
+		return  (List<Genero>) generoDAO.findAll();
+	}
+
 	
-	public void delete(Genero genero);
-	
-	public void deleteById(String codGenero);
-	
-	public List<Genero> todosGeneros();
 }

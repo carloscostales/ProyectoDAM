@@ -9,7 +9,7 @@ import com.carlos.model.Rol;
 import com.carlos.repository.RolDAO;
 
 @Service
-public class RolServiceImpl implements RolService{
+public class RolServiceI implements IRolService{
 
 	@Autowired
 	private RolDAO rolDAO;

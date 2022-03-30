@@ -17,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
-import com.carlos.service.UsuarioService;
+import com.carlos.service.IUsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private IUsuarioService usuarioService;
 	
 
 	@GetMapping("/usuarios")
