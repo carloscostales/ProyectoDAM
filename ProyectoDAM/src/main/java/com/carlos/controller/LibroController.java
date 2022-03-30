@@ -44,6 +44,21 @@ public class LibroController {
 		return mav;
 	}
 	
+	@GetMapping("/ver/{libro}")
+	public ModelAndView verLibros(@PathVariable Libro libro, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("libro/verLibro");
+		
+		mav.addObject("libro", libro);
+		
+		if(auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
+		return mav;
+	}
+	
 	@GetMapping("/nuevoLibro/{autor}")
 	public ModelAndView nuevoLibro(@PathVariable Autor autor, Authentication auth) {
 		ModelAndView mav = new ModelAndView();

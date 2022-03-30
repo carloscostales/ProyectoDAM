@@ -1,0 +1,27 @@
+<html>
+	<head>
+	    <title>Vista de libro</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+		
+		<div class="container">
+			<h1 class="text-center mt-3" th:text="${libro.titulo}"> </h1>
+			
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Género: </b><span th:text="${libro.genero.nombre}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
+			</ul>
+
+		</div>
+	</body>
+</html>
