@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Nuevo libros</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+	
+   		<nav th:replace="../fragments/nav.html :: nav"></nav>
+	    
+	    <section class="container my-5">
+			
+			<h1 class="text-center">NUEVO LIBRO</h1>
+			
+			<h2 th:text="${autor.nombre}" class="text-center"></h2>
+			
+			<form action="#" th:action="@{/libro/addLibro}" th:object="${libro}" method="post">
+				<div class="mb-3">
+					<label for="isbn" class="form-label">ISBN</label>
+					<input type="text" class="form-control" th:field="*{isbn}" id="isbn" placeholder="ISBN">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></small>
+				</div>
+					
+				<div class="mb-3">
+					<label for="titulo" class="form-label">Título</label>
+				    <input type="text" class="form-control" th:field="*{titulo}" id="titulo" placeholder="Título">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="genero" class="form-label">Genero</label>
+					<select name="genero" class="form-control" id="genero">
+					    <option th:each="genero : ${generos}" th:value="${genero.codigo}" th:text="${genero.nombre}" th:selected="false"></option>
+					</select>
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{g}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="editorial" class="form-label">Editorial</label>
+				    <input type="text" class="form-control" th:field="*{editorial}" id="titulo" placeholder="Editorial">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('editorial')}" th:errors="*{editorial}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="paginas" class="form-label">Páginas</label>
+				    <input type="number" class="form-control" th:field="*{paginas}" id="paginas" placeholder="Páginas">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('paginas')}" th:errors="*{paginas}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="ano" class="form-label">Año</label>
+				    <input type="number" class="form-control" th:field="*{ano}" id="ano" placeholder="Año">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}"></small>
+				</div>
+				
+				<div class="mb-3" hidden>
+					<label for="autor" class="form-label">Autor</label>
+				    <input type="text" th:value="${autor.id}" name="autor" id="autor"/>
+				</div>
+				
+				<button type="submit" class="btn btn-success">Adelante</button>
+			</form>
+			
+		</section>
+		
+	</body>
+</html>

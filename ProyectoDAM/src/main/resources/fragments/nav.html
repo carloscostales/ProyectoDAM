@@ -28,6 +28,11 @@
 						Lista de autores
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/libro/libros}" th:classappend="${#httpServletRequest.getRequestURI() == '/libro/libros' ? 'active':''}">
+						Lista de libros
+					</a>
+				</li>
 			</ul>
 			
 			<div class="text-white" sec:authorize="isAnonymous()">

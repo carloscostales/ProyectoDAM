@@ -31,3 +31,12 @@ body {
 .active{
 	color: #DFDFDE !important;
 }
+
+input[type='text'], input[type='number'], input[type='password'], input[type='date'], textarea, select {
+	background-color: var(--secondary) !important;
+  	color: white !important;
+  	border: none !important;
+  	border-bottom: 1px solid white !important;
+  	border-right: 1px solid white !important;
+	border-radius: 0 !important;
+}

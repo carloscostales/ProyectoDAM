@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Lista de libros</title>
+	
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>  
+
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+
+	    <div class="container text-center">
+	    	<h1 class="mt-3">LIBROS</h1>
+	    	
+			<table class="table table-hover">
+			    <thead>
+			        <tr>
+			            <th scope="col"> ISBN </th>
+			            <th scope="col"> Título </th>
+			            <th scope="col"> Autor </th>
+			            <th scope="col"> Género </th>
+			        </tr>
+			    </thead>
+			    <tbody>
+				<tr th:if="${libros.empty}">
+			        <td colspan="100%"> No hay autores </td>
+			    </tr>
+			        <tr th:each="libro: ${libros}">
+			            <td><span th:text="${libro.isbn}"> isbn </span></td>
+			            <td><span th:text="${libro.titulo}"> titulo </span></td>
+			            <td><span th:text="${libro.autor.nombre}"> nombre</span></td>
+			            <td><span th:text="${libro.genero}"> cod</span></td>
+			        </tr>
+			    </tbody>
+			</table>
+			
+			<a th:href="@{/}">Volver al inicio</a>
+			
+	    </div>
+	</body>
+</html>

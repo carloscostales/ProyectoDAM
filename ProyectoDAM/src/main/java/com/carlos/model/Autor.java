@@ -1,10 +1,16 @@
 package com.carlos.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -38,6 +44,9 @@ public class Autor {
 	@NotBlank(message = "El año de nacimiento no puede estar vacío.")
 	private String fechaNacimiento;
 
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
+	private List<Libro> libros = new ArrayList<Libro>();
+	
 	
 	public int getId() {
 		return id;
@@ -69,6 +78,14 @@ public class Autor {
 
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public List<Libro> getLibros() {
+		return libros;
+	}
+
+	public void setLibros(List<Libro> libros) {
+		this.libros = libros;
 	}
 
 	@Override
