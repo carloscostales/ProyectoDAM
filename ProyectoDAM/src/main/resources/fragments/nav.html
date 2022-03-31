@@ -36,8 +36,8 @@
 			</ul>
 			
 			<div class="text-white" sec:authorize="isAnonymous()">
-				<a type="button" class="btn btn-primary" th:href="@{/login}">Login</a>
-				<a type="button" class="btn btn-light text-dark" th:href="@{/usuario/registro}">Registrarse</a>
+				<a type="button" class="btn btn-outline-secondary" th:href="@{/login}">Login</a>
+				<a type="button" class="btn btn-primary" th:href="@{/usuario/registro}">Registrarse</a>
 			</div>
 
     		<div class="text-white" sec:authorize="isAuthenticated()">

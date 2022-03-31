@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 @Table(name="libro")
 public class Libro {
@@ -18,13 +20,15 @@ public class Libro {
 	public Libro() {
 	}
 
-	public Libro(String isbn, String titulo, String editorial, Integer ano, Integer paginas, Autor autor) {
+	public Libro(String isbn, String titulo, String editorial, Integer ano, Integer paginas, String sinopsis, Autor autor, Genero genero) {
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.editorial = editorial;
 		this.ano = ano;
 		this.paginas = paginas;
+		this.sinopsis = sinopsis;
 		this.autor = autor;
+		this.genero = genero;
 	}
 
 	@Id
@@ -49,6 +53,10 @@ public class Libro {
 	@Min(0)
 	@Max(value=2022, message="No puede ser mayor que este año.")
 	private Integer ano;
+	
+	@Column
+	@Length(max=10000)
+	private String sinopsis;
 	
 	@ManyToOne
 	private Autor autor = new Autor();
@@ -99,6 +107,14 @@ public class Libro {
 	
 	public Autor getAutor() {
 		return autor;
+	}
+
+	public String getSinopsis() {
+		return sinopsis;
+	}
+
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
 	}
 
 	public void setAutor(Autor autor) {

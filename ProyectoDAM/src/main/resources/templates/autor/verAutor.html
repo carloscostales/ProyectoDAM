@@ -24,12 +24,15 @@
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Fecha de nacimiento: </b><span th:text="${autor.fechaNacimiento}"></span></li>
 			</ul>
 			
+			<p th:text="${autor.bio}" class="text-justify" style="text-indent: 1rem;"></p>
+			
 			
 			<div class="row">
 			    	<div class="card col-6 bg-transparent" th:each="libro: ${autor.libros}">
 			        	<div class="card-body">
-			          		<h5 class="card-title" th:text="${libro.titulo}">Special title treatment</h5>
-			          		<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			          		<h5 class="card-title" th:text="${libro.titulo}">Titulo</h5>
+			          		<p th:text="${libro.autor.nombre}" class="card-text"> contenido </p>
+			          		<p th:text="${libro.isbn}" class="card-text"> contenido </p>
 			          		<a th:href="@{/libro/ver/{libro}(libro = ${libro.isbn})}" class="btn btn-primary">Ver</a>
 			        	</div>
 			      	</div>

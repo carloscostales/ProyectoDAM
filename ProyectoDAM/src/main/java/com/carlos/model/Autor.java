@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 @Table(name="autor")
 public class Autor {
@@ -21,11 +23,12 @@ public class Autor {
 	public Autor() {
 	}
 	
-	public Autor(int id, String nombre, String pais, String fechaNacimiento) {
+	public Autor(int id, String nombre, String pais, String fechaNacimiento, String bio) {
 		this.id = id;
 		this.nombre = nombre;
 		this.pais = pais;
 		this.fechaNacimiento = fechaNacimiento;
+		this.bio = bio;
 	}
 
 	@Id
@@ -43,6 +46,11 @@ public class Autor {
 	@Column
 	@NotBlank(message = "El año de nacimiento no puede estar vacío.")
 	private String fechaNacimiento;
+	
+	@Column
+	@Length(max = 1000)
+	private String bio;
+	
 
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
 	private List<Libro> libros = new ArrayList<Libro>();
@@ -78,6 +86,14 @@ public class Autor {
 
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+	
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 
 	public List<Libro> getLibros() {
