@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.carlos.model.Genero;
 
-public interface IGeneroService {
+public interface IServiceGenero {
 
 	public void add(Genero genero);
 	

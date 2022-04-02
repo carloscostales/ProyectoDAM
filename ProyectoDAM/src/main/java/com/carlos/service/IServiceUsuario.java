@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.carlos.model.Usuario;
 
-public interface IUsuarioService {
+public interface IServiceUsuario {
 
 	public void add(Usuario usuario);
 	

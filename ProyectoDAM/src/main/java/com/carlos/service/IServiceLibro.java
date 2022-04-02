@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.carlos.model.Libro;
 
-public interface ILibroService {
+public interface IServiceLibro {
 	
 	public List<Libro> listarLibros();
 	

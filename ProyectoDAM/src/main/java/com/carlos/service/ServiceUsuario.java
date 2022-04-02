@@ -9,7 +9,7 @@ import com.carlos.model.Usuario;
 import com.carlos.repository.UsuarioDAO;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class ServiceUsuario implements IServiceUsuario {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;

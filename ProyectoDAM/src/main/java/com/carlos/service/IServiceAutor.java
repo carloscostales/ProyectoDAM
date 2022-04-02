@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.carlos.model.Autor;
 
-public interface IAutorService {
+public interface IServiceAutor {
 
 	public List<Autor> listarAutores();
 	

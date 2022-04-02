@@ -18,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Autor;
 import com.carlos.model.Seguir;
 import com.carlos.model.Usuario;
-import com.carlos.service.IAutorService;
-import com.carlos.service.ILibroService;
+import com.carlos.service.IServiceAutor;
+import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceSeguir;
 
 @Controller
@@ -27,13 +27,13 @@ import com.carlos.service.IServiceSeguir;
 public class AutorController {
 	
 	@Autowired
-	private IAutorService autorService;
+	private IServiceAutor autorService;
 	
 	@Autowired 
 	private IServiceSeguir seguirService;
 
 	@Autowired 
-	private ILibroService libroService;
+	private IServiceLibro libroService;
 	
 	
 	@GetMapping("/autores")

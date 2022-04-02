@@ -9,7 +9,7 @@ import com.carlos.model.Autor;
 import com.carlos.repository.AutorDAO;
 
 @Service
-public class AutorService implements IAutorService {
+public class ServiceAutor implements IServiceAutor {
 	
 	@Autowired
 	private AutorDAO autorDAO;

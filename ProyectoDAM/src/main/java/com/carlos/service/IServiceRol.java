@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.carlos.model.Rol;
 
-public interface IRolService {
+public interface IServiceRol {
 
 	public List<Rol> listaRoles();
 }

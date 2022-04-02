@@ -9,7 +9,7 @@ import com.carlos.model.Libro;
 import com.carlos.repository.LibroDAO;
 
 @Service
-public class LibroService implements ILibroService {
+public class ServiceLibro implements IServiceLibro {
 	
 	@Autowired
 	private LibroDAO libroDAO;

@@ -9,7 +9,7 @@ import com.carlos.model.Genero;
 import com.carlos.repository.GeneroDAO;
 
 @Service
-public class GeneroService implements IGeneroService {
+public class ServiceGenero implements IServiceGenero {
 	
 	@Autowired
 	private GeneroDAO generoDAO; 
