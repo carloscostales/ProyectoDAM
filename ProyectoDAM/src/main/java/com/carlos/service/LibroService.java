@@ -21,6 +21,12 @@ public class LibroService implements ILibroService {
 	}
 
 	@Override
+	public List<Libro> listarLibrosAutor(Integer id) {
+		
+		return (List<Libro>) libroDAO.listarLibros(id);
+	}
+	
+	@Override
 	public void add(Libro libro) {
 		libroDAO.save(libro);
 	}

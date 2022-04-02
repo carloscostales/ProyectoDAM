@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.carlos.service.Autenticacion;
 
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity(debug=false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired

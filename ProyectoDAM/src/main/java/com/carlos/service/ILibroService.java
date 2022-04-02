@@ -7,6 +7,8 @@ import com.carlos.model.Libro;
 public interface ILibroService {
 	
 	public List<Libro> listarLibros();
+	
+	public List<Libro> listarLibrosAutor(Integer id);
 		
 	public void add(Libro libro);
 	

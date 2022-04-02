@@ -13,7 +13,7 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<div class="container">
-			<div sec:authorize="isAuthenticated()">
+			<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 		    	<a class="btn btn-primary float-end" th:href="@{/libro/nuevoLibro/{autor}(autor=${autor.id})}">Nuevo libro</a>
 		    </div>
 		    <div sec:authorize="isAuthenticated()">
@@ -33,7 +33,7 @@
 			<p th:text="${autor.bio}" class="text-justify" style="text-indent: 1rem;"></p>
 			
 			<div class="row">
-			    <div class="card col-6 bg-transparent" th:each="libro: ${autor.libros}">
+			    <div class="card col-6 bg-transparent" th:each="libro: ${libros}">
 			       	<div class="card-body">
 			    		<h5 class="card-title" th:text="${libro.titulo}">Titulo</h5>
 			    		<p th:text="${libro.autor.nombre}" class="card-text"> contenido </p>

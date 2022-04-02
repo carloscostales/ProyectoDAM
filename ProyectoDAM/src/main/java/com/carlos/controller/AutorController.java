@@ -19,6 +19,7 @@ import com.carlos.model.Autor;
 import com.carlos.model.Seguir;
 import com.carlos.model.Usuario;
 import com.carlos.service.IAutorService;
+import com.carlos.service.ILibroService;
 import com.carlos.service.IServiceSeguir;
 
 @Controller
@@ -28,7 +29,11 @@ public class AutorController {
 	@Autowired
 	private IAutorService autorService;
 	
-	@Autowired IServiceSeguir seguirService;
+	@Autowired 
+	private IServiceSeguir seguirService;
+
+	@Autowired 
+	private ILibroService libroService;
 	
 	
 	@GetMapping("/autores")
@@ -54,6 +59,7 @@ public class AutorController {
 		
 		mav.addObject("autor", autor);
 		mav.addObject("seguir", new Seguir());
+		mav.addObject("libros", libroService.listarLibrosAutor(autor.getId()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
