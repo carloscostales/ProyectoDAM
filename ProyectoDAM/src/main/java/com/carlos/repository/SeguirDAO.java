@@ -2,6 +2,9 @@ package com.carlos.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +16,14 @@ public interface SeguirDAO extends CrudRepository<Seguir, Integer> {
 	
 	List<Seguir> findByUsuario(Usuario usuario);
 	
-	@Query(value="SELECT * FROM artista WHERE id!=:id AND genero_nombre=:genero LIMIT 12", nativeQuery=true)
-	List<Seguir> findArtistasGenero(@Param("id") Integer id, @Param("genero") String genero);
+	@Query(value="SELECT * FROM seguir WHERE autor_id = :id AND usuario_nombre_usuario = :nombreUsuario", nativeQuery=true)
+	Seguir buscarId(@Param("id") Integer id, @Param("nombreUsuario") String nombreUsuario);
+	
+	@Query(value="SELECT count(id) FROM seguir WHERE autor_id = :id AND usuario_nombre_usuario = :nombreUsuario", nativeQuery=true)
+	Integer comprobarSeguir(@Param("id") Integer id, @Param("nombreUsuario") String nombreUsuario);
+	
+	@Query(value="DELETE FROM seguir WHERE id = :id", nativeQuery=true)
+	@Transactional
+	@Modifying
+	void borrarSeguimiento(@Param("id") Integer id);
 }

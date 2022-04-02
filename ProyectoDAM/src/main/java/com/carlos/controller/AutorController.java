@@ -64,6 +64,14 @@ public class AutorController {
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
+
+			int seguidoInt = seguirService.comprobarSeguir(autor.getId(), usuario.getNombreUsuario());
+			boolean seguido = false;
+			if(seguidoInt == 1) {
+				seguido = true;
+				mav.addObject("seguir", seguirService.buscarSeguir(autor.getId(), usuario.getNombreUsuario()));
+			}
+			mav.addObject("seguido", seguido);
 		}
 		
 		return mav;

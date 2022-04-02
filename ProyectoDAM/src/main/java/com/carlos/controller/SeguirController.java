@@ -3,7 +3,9 @@ package com.carlos.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +35,17 @@ public class SeguirController {
 		 seguir.setUsuario(usuario);
 		 
 		 seguirService.add(seguir);
+		 
+		 return mav;
+	 }
+	
+	@GetMapping("/dejarSeguir/{seguir}")
+	 private ModelAndView dejarSeguir(@PathVariable Seguir seguir) {
+		 ModelAndView mav = new ModelAndView();
+		 mav.setViewName("redirect:/autor/ver/" + seguir.getAutor().getId());
+		 
+		 System.out.println(seguir.getId());
+		 seguirService.delete(seguir);
 		 
 		 return mav;
 	 }

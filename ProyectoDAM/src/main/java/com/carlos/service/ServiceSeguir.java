@@ -16,6 +16,12 @@ public class ServiceSeguir implements IServiceSeguir {
 	private SeguirDAO seguirDAO;
 
 	@Override
+	public Seguir buscarSeguir(Integer id, String nombreUsuario) {
+		
+		return seguirDAO.buscarId(id, nombreUsuario);
+	}
+	
+	@Override
 	public List<Seguir> buscarAutoresDeUsuario(Usuario usuario) {
 		
 		return seguirDAO.findByUsuario(usuario);
@@ -28,7 +34,13 @@ public class ServiceSeguir implements IServiceSeguir {
 
 	@Override
 	public void delete(Seguir seguir) {
-		seguirDAO.delete(seguir);
+		seguirDAO.borrarSeguimiento(seguir.getId());
+		System.out.println(seguir.getId());
 	}
 
+	@Override
+	public Integer comprobarSeguir(Integer id, String nombreUsuario) {
+		
+		return seguirDAO.comprobarSeguir(id, nombreUsuario);
+	}
 }
