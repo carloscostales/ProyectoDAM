@@ -1,7 +1,9 @@
 package com.carlos.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,9 +53,11 @@ public class Autor {
 	@Length(max = 1000)
 	private String bio;
 	
-
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
 	private List<Libro> libros = new ArrayList<Libro>();
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Seguir> seguir = new HashSet<>();
 	
 	
 	public int getId() {

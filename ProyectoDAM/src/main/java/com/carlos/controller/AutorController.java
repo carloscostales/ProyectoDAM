@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Autor;
+import com.carlos.model.Seguir;
 import com.carlos.model.Usuario;
 import com.carlos.service.IAutorService;
+import com.carlos.service.IServiceSeguir;
 
 @Controller
 @RequestMapping("/autor")
@@ -25,6 +27,8 @@ public class AutorController {
 	
 	@Autowired
 	private IAutorService autorService;
+	
+	@Autowired IServiceSeguir seguirService;
 	
 	
 	@GetMapping("/autores")
@@ -49,6 +53,7 @@ public class AutorController {
 		mav.setViewName("autor/verAutor");
 		
 		mav.addObject("autor", autor);
+		mav.addObject("seguir", new Seguir());
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

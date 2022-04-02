@@ -2,21 +2,23 @@ package com.carlos.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Usuario implements UserDetails{
@@ -52,6 +54,9 @@ public class Usuario implements UserDetails{
 
 	@ManyToOne
 	private Rol rol = new Rol();
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Seguir> seguir = new HashSet<>();
 	
 	
 	public String getNombreUsuario() {
