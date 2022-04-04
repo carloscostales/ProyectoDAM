@@ -60,6 +60,7 @@ public class AutorController {
 		mav.addObject("autor", autor);
 		mav.addObject("seguir", new Seguir());
 		mav.addObject("libros", libroService.listarLibrosAutor(autor.getId()));
+		mav.addObject("numeroSeguidores", seguirService.numeroSeguidores(autor.getId()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

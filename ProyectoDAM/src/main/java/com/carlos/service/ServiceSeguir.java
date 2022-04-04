@@ -26,6 +26,18 @@ public class ServiceSeguir implements IServiceSeguir {
 		
 		return seguirDAO.findByUsuario(usuario);
 	}
+	
+	@Override
+	public Integer comprobarSeguir(Integer id, String nombreUsuario) {
+		
+		return seguirDAO.comprobarSeguir(id, nombreUsuario);
+	}
+
+	@Override
+	public Integer numeroSeguidores(Integer id) {
+		
+		return seguirDAO.numeroSeguidores(id);
+	}
 
 	@Override
 	public void add(Seguir seguir) {
@@ -36,11 +48,5 @@ public class ServiceSeguir implements IServiceSeguir {
 	public void delete(Seguir seguir) {
 		seguirDAO.borrarSeguimiento(seguir.getId());
 		System.out.println(seguir.getId());
-	}
-
-	@Override
-	public Integer comprobarSeguir(Integer id, String nombreUsuario) {
-		
-		return seguirDAO.comprobarSeguir(id, nombreUsuario);
 	}
 }

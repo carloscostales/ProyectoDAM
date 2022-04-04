@@ -28,10 +28,12 @@
 
 
 		    </div>
-		    
-			<h1 class="text-center mt-3" th:text="${autor.nombre}"> </h1>
+		    <div class="row">
+				<h1 class="col-12 text-center mt-3" th:text="${autor.nombre}"> NOMBRE AUTOR </h1>
+				<h6 class="col-12 text-center"><span th:text="${numeroSeguidores}" th:remove="tag"></span> seguidores</h6>
+			</div>
 			
-			<ul class="list-group list-group-flush">
+			<ul class="list-group list-group-flush mb-4">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Nombre: </b><span th:text="${autor.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Pais: </b><span th:text="${autor.pais}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Fecha de nacimiento: </b><span th:text="${autor.fechaNacimiento}"></span></li>

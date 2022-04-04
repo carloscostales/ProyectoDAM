@@ -22,6 +22,9 @@ public interface SeguirDAO extends CrudRepository<Seguir, Integer> {
 	@Query(value="SELECT count(id) FROM seguir WHERE autor_id = :id AND usuario_nombre_usuario = :nombreUsuario", nativeQuery=true)
 	Integer comprobarSeguir(@Param("id") Integer id, @Param("nombreUsuario") String nombreUsuario);
 	
+	@Query(value="SELECT count(id) FROM seguir WHERE autor_id = :id", nativeQuery=true)
+	Integer numeroSeguidores(@Param("id") Integer id);
+	
 	@Query(value="DELETE FROM seguir WHERE id = :id", nativeQuery=true)
 	@Transactional
 	@Modifying

@@ -13,6 +13,8 @@ public interface IServiceSeguir {
 	
 	public Integer comprobarSeguir(Integer id, String nombreUsuario);
 	
+	public Integer numeroSeguidores(Integer id);
+	
 	public void add(Seguir seguir);
 	
 	public void delete(Seguir seguir);

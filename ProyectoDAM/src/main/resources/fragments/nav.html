@@ -40,11 +40,17 @@
 				<a type="button" class="btn btn-primary" th:href="@{/usuario/registro}">Registrarse</a>
 			</div>
 
-    		<div class="text-white" sec:authorize="isAuthenticated()">
-    			<a type="button" class="btn btn-primary" th:href="@{/usuario/ver/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+    		<div class="text-white btn-group dropstart" sec:authorize="isAuthenticated()">
+    			<!--  User: <span sec:authentication="name">miquel</span> -->
 				
-				<!--  User: <span sec:authentication="name">miquel</span> -->
-				<a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
+				<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    				<span sec:authentication="name">USUARIO</span>
+  				</button>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				    <li><a class="dropdown-item" th:href="@{/usuario/ver/{usuario}(usuario=${usuario.nombreUsuario})}"><i class="bi bi-person-circle"></i> Ver usuario</a></li>
+				    <li><a class="dropdown-item bg-danger" th:href="@{/logout}"><i class="bi bi-x-square"></i> Logout</a>
+				</li>
+  				</ul>
 			</div>
 		</div>
 	
