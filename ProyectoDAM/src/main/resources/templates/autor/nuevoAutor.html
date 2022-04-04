@@ -18,7 +18,7 @@
 			
 			<h1 class="text-center">NUEVO AUTOR</h1>
 			
-			<form action="#" th:action="@{/autor/addAutor}" th:object="${autor}" method="post">
+			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post">
 				<div class="mb-3">
 					<label for="nombre" class="form-label">Nombre</label>
 					<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">

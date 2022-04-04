@@ -18,7 +18,7 @@
 			
 			<h1 class="text-center">NUEVO GÉNERO</h1>
 			
-			<form action="#" th:action="@{/genero/addGenero}" th:object="${genero}" method="post">
+			<form th:action="@{/genero/addGenero}" th:object="${genero}" method="post">
 				<div class="mb-3">
 					<label for="codigo" class="form-label">Código</label>
 					<input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código">

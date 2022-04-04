@@ -94,7 +94,7 @@ public class LibroController {
 		
 		libroService.add(libro);
 		
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/autor/ver/" + autor.getId());
 		
 		return mav;
 	}
