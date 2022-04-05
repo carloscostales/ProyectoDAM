@@ -1,9 +1,15 @@
 package com.carlos.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -63,6 +69,9 @@ public class Libro {
 	
 	@ManyToOne
 	private Genero genero = new Genero();
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<LibroEstadoUsuario> libro_estado_usuario = new HashSet<>();
 	
 
 	public String getIsbn() {

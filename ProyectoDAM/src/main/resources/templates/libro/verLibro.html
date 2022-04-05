@@ -15,6 +15,59 @@
 		<div class="container">
 			<h1 class="text-center mt-3" th:text="${libro.titulo}"> </h1>
 			
+			<div sec:authorize="isAuthenticated()">
+				<div th:if="${leuActual != null}">
+					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cambiarEstadoModal" th:text="${leuActual.estado.nombre}">
+  						estado
+  					</button>
+  					
+					<!-- Modal cambiar estado -->
+					<div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" sec:authorize="isAuthenticated()">
+			  			<div class="modal-dialog">
+			    			<div class="modal-content bg-dark">
+			      				<div class="modal-header">
+			        				<h5 class="modal-title" id="exampleModalLabel">Cambio de estado</h5>
+			        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      				</div>
+			      				<div class="modal-body">
+									
+									<form action="#" th:action="@{/updateLeu}" th:object="${leuActual}" method="post">
+										<div class="d-none">
+											<input type="text" class="form-control" th:value="${leuActual.id}" name="id" id="id">
+											<input type="text" class="form-control" th:value="${libro.isbn}" name="libro" id="libro">
+											<input type="text" class="form-control" th:value="${usuario.nombreUsuario}" name="usuario" id="usuario">
+										</div>
+										<div class="mb-3">
+											<label for="estado" class="font-weight-bold">Estado</label>
+											<select name="estado" class="form-control" id="genero">
+											    <option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nombre}" th:selected="${estado.nombre} == ${leuActual.estado.nombre}"></option>
+											</select>
+										</div>
+										<button type="submit" class="btn btn-success">Cambiar estado</button>
+										<a class="btn btn-danger" th:href="@{/deleteLeu/{leu}(leu=${leuActual.id})}">Borrar</a>
+									</form>
+									
+									
+			      				</div>
+			    			</div>
+			  			</div>
+					</div>
+				</div>
+				
+				<div th:unless="${leuActual != null}">
+					<form th:action="@{/addLeu}" th:object="${leuNuevo}" method="post">
+						<div class="mb-3 d-none">
+							<label for="libro" class="form-label"> libro </label>
+							<input type="text" class="form-control" th:value="${libro.isbn}" name="libro" id="libro">
+							<label for="usuario" class="form-label"> usuario </label>
+							<input type="text" class="form-control" th:value="${usuario.nombreUsuario}" name="usuario" id="usuario">
+						</div>
+							
+						<button type="submit" class="btn btn-success">Añadir a la lista</button>
+					</form>
+				</div>
+			</div>
+			
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
@@ -22,7 +75,7 @@
 				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
 			</ul>
 			<p style="white-space: pre-wrap;" th:text="${libro.sinopsis}"></p>
-
+			
 		</div>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>

@@ -15,9 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Autor;
 import com.carlos.model.Libro;
+import com.carlos.model.LibroEstadoUsuario;
 import com.carlos.model.Usuario;
+import com.carlos.service.IServiceEstado;
 import com.carlos.service.IServiceGenero;
 import com.carlos.service.IServiceLibro;
+import com.carlos.service.IServiceLibroEstadoUsuario;
 
 @Controller
 @RequestMapping("/libro")
@@ -28,6 +31,12 @@ public class LibroController {
 	
 	@Autowired
 	private IServiceGenero generoService;
+	
+	@Autowired
+	private IServiceLibroEstadoUsuario estadoLibUsService;
+	
+	@Autowired
+	private IServiceEstado estadoService;
 
 
 	@GetMapping("/libros")
@@ -54,6 +63,15 @@ public class LibroController {
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
+
+			mav.addObject("leuNuevo", new LibroEstadoUsuario());
+			
+			LibroEstadoUsuario leu = estadoLibUsService.estadoDeLibro(libro, usuario);
+			mav.addObject("estados", estadoService.listarEstados());
+			
+			if(leu != null) {
+				mav.addObject("leuActual", leu);
+			}
 		}
 		
 		return mav;

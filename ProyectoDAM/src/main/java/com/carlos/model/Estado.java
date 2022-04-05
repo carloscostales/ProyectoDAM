@@ -19,6 +19,10 @@ public class Estado {
 	public Estado() {
 	}
 	
+	public Estado(Integer id) {
+		this.id = id;
+	}
+	
 	public Estado(Integer id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
@@ -31,6 +35,9 @@ public class Estado {
 	@Column
 	@NotBlank(message="El nombre no puede estar vacío.")
 	private String nombre;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estado", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<LibroEstadoUsuario> libro_estado_usuario = new HashSet<>();
 	
 	
 	public Integer getId() {
