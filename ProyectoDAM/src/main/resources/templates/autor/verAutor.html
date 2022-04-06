@@ -13,21 +13,28 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<div class="container">
+		
 			<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 		    	<a class="btn btn-primary float-end" th:href="@{/libro/nuevoLibro/{autor}(autor=${autor.id})}">Nuevo libro</a>
 		    </div>
+		    
 		    <div sec:authorize="isAuthenticated()">
 		    	<div th:if="${seguido}">
 		    		<a type="button" class="btn btn-warning" th:href="@{/seguir/dejarSeguir/{seguir}(seguir=${seguir.id})}">Seguido</a>
 		    	</div>
+		    	
 		    	<div th:unless="${seguido}">
-  					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#seguirModal">
-  						Seguir
-  					</button>
+		    		<form class="m-0" th:action="@{/seguir/addSeguir}" th:object="${seguir}" method="post">
+						<div class="d-none">
+							<label for="autor" class="form-label">id</label>
+							<input type="text" class="form-control" th:value="${autor.id}" name="autor" id="autor">
+						</div>
+						
+						<button type="submit" class="btn btn-outline-warning">Seguir</button>
+					</form>
 		    	</div>
-
-
 		    </div>
+		    
 		    <div class="row">
 				<h1 class="col-12 text-center mt-3" th:text="${autor.nombre}"> NOMBRE AUTOR </h1>
 				<h6 class="col-12 text-center"><span th:text="${numeroSeguidores}" th:remove="tag"></span> seguidores</h6>
@@ -53,58 +60,7 @@
 				    </div>
 				</div>
 			</div>
-		</div>
-		
-		<!-- Modal seguir -->
-		<div class="modal fade" id="seguirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" sec:authorize="isAuthenticated()">
-  			<div class="modal-dialog">
-    			<div class="modal-content bg-dark">
-      				<div class="modal-header">
-        				<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres seguir a <span th:text="${autor.nombre}" th:remove="tag"></span>?</h5>
-        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      				</div>
-      				<div class="modal-body">
-						
-						<form action="#" th:action="@{/seguir/addSeguir}" th:object="${seguir}" method="post">
-							<div class="mb-3 d-none">
-								<label for="autor" class="form-label">id</label>
-								<input type="text" class="form-control" th:value="${autor.id}" name="autor" id="autor">
-							</div>
-							
-							<button type="submit" class="btn btn-success">Seguir</button>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atrás</button>
-						</form>
-						
-      				</div>
-    			</div>
-  			</div>
-		</div>
-		
-		<!-- Modal dejar de seguir -->
-		<div class="modal fade" id="dejarSeguirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" sec:authorize="isAuthenticated()">
-  			<div class="modal-dialog">
-    			<div class="modal-content bg-dark">
-      				<div class="modal-header">
-        				<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres dejar de seguir a <span th:text="${autor.nombre}" th:remove="tag"></span>?</h5>
-        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      				</div>
-      				<div class="modal-body">
-						
-						<form action="#" th:action="@{/seguir/dejarSeguir}" th:object="${seguir}" method="post">
-							<div class="mb-3 d-none">
-								<label for="autor" class="form-label">id</label>
-								<input type="text" class="form-control" th:value="${autor.id}" name="autor" id="autor">
-							</div>
-							
-							<button type="submit" class="btn btn-success">Seguir</button>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atrás</button>
-						</form>
-						
-      				</div>
-    			</div>
-  			</div>
-		</div>
-		
+
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
 	</body>
 </html>

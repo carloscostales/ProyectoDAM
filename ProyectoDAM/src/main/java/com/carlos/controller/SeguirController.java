@@ -44,7 +44,6 @@ public class SeguirController {
 		 ModelAndView mav = new ModelAndView();
 		 mav.setViewName("redirect:/autor/ver/" + seguir.getAutor().getId());
 		 
-		 System.out.println(seguir.getId());
 		 seguirService.delete(seguir);
 		 
 		 return mav;
