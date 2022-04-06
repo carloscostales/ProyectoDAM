@@ -12,6 +12,6 @@ import com.carlos.model.Libro;
 @Repository
 public interface LibroDAO extends CrudRepository<Libro, String> {
 
-	@Query(value="SELECT * FROM libro WHERE autor_id = :id", nativeQuery = true)
+	@Query(value="SELECT * FROM libros WHERE autor_id = :id", nativeQuery = true)
 	List<Libro> listarLibros(@Param("id") Integer id);
 }

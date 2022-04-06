@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="autor")
+@Table(name="autores")
 public class Autor {
 	
 	public Autor() {
