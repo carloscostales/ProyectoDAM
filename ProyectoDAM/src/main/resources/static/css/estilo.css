@@ -1,32 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 
-
-/* VARIABLES */
-:root {
-  	--main: #2D2424;
-	--secondary: #5C3D2E;
-}
-
-
-/* OVERRIDES BOOTSTRAP */
-bg-primary{
-	color: #5C3D2E;
-}
-
-
 /* PROYECTO */
 html * {
 	font-family: 'Asap', sans-serif;
    	color: white !important;
-   	
 }
 
 body {
-	background-color: var(--main);
-}
-
-.navbar {
-	background-color: var(--secondary);
+	background-color: #171717;
 }
 
 .active{
@@ -40,12 +21,4 @@ input[type='text'], input[type='number'], input[type='password'], input[type='da
   	border-bottom: 1px solid white !important;
   	border-right: 1px solid white !important;
 	border-radius: 0 !important;
-}
-
-.dropdown-menu {
-	background-color: var(--secondary) !important;
-}
-
-.dropdown-menu a:hover {
-	background-color: var(--main);
 }
