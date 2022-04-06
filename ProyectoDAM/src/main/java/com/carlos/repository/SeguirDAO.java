@@ -8,10 +8,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.carlos.model.Seguir;
 import com.carlos.model.Usuario;
 
+@Repository
 public interface SeguirDAO extends CrudRepository<Seguir, Integer> {
 	
 	List<Seguir> findByUsuario(Usuario usuario);
