@@ -13,23 +13,25 @@ public class ServiceAutor implements IServiceAutor {
 	
 	@Autowired
 	private AutorDAO autorDAO;
-	
-
-	@Override
-	public List<Autor> listarAutores() {
-
-		return (List<Autor>) autorDAO.findAll();
-	}
 
 	@Override
 	public void add(Autor autor) {
 		autorDAO.save(autor);
-		
 	}
+	
+	@Override
+	public void update(Autor autor) {
+		if(autorDAO.existsById(autor.getId()))
+			autorDAO.save(autor);
+	}	
 
 	@Override
 	public void delete(Autor autor) {
 		autorDAO.delete(autor);
-		
+	}
+
+	@Override
+	public List<Autor> listarAutores() {
+		return (List<Autor>) autorDAO.findAll();
 	}
 }

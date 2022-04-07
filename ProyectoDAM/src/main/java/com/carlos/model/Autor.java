@@ -50,6 +50,7 @@ public class Autor {
 	private String fechaNacimiento;
 	
 	@Column
+	@NotBlank(message = "La biografía no puede estar vacía.")
 	@Length(max = 1000)
 	private String bio;
 	

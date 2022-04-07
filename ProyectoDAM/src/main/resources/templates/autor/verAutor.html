@@ -15,7 +15,9 @@
 		<div class="container">
 		
 			<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+		    	<a class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#borrarModal">Borrar autor</a>
 		    	<a class="btn btn-primary float-end" th:href="@{/libro/nuevoLibro/{autor}(autor=${autor.id})}">Nuevo libro</a>
+		    	<a class="btn btn-tertiary float-end" th:href="@{/autor/editar/{autor}(autor=${autor.id})}">Editar autor</a>
 		    </div>
 		    
 		    <div sec:authorize="isAuthenticated()">
@@ -60,6 +62,27 @@
 				    </div>
 				</div>
 			</div>
+		</div>
+		
+		
+		<!-- BORRAR MODAL -->
+		<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content text-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title text-dark" id="exampleModalLabel">¿Seguro que quieres borrar a este autor?</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				Si el autor tiene algún libro, no se borrará...
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        				<a type="button" th:href="@{/autor/borrarAutor/{autor}(autor=${autor.id})}" class="btn btn-danger">Borrar</a>
+      				</div>
+    			</div>
+  			</div>
+		</div>
 
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
 	</body>
