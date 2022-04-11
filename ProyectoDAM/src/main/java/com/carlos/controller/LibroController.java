@@ -42,21 +42,20 @@ public class LibroController {
 	@GetMapping("/libros")
 	public ModelAndView verLibros(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("libro/libros");
 		
 		mav.addObject("libros", libroService.listarLibros());
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
-		
+
+		mav.setViewName("libro/libros");
 		return mav;
 	}
 	
 	@GetMapping("/ver/{libro}")
 	public ModelAndView verLibros(@PathVariable Libro libro, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("libro/verLibro");
 		
 		mav.addObject("libro", libro);
 		
@@ -73,14 +72,14 @@ public class LibroController {
 				mav.addObject("leuActual", leu);
 			}
 		}
-		
+
+		mav.setViewName("libro/verLibro");
 		return mav;
 	}
 	
 	@GetMapping("/nuevoLibro/{autor}")
 	public ModelAndView nuevoLibro(@PathVariable Autor autor, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("libro/nuevoLibro");
 		
 		mav.addObject("libro", new Libro());
 		mav.addObject("autor", autor);
@@ -90,7 +89,8 @@ public class LibroController {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
-		
+
+		mav.setViewName("libro/nuevoLibro");
 		return mav;
 	}
 	
@@ -113,7 +113,54 @@ public class LibroController {
 		libroService.add(libro);
 		
 		mav.setViewName("redirect:/autor/ver/" + autor.getId());
+		return mav;
+	}
+	
+	@GetMapping("/editar/{libro}")
+	public ModelAndView editarLibro(@PathVariable Libro libro, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("libro", libro);
+		mav.addObject("generos", generoService.todosGeneros());
+
+		if(auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+
+		mav.setViewName("libro/editarLibro");
+		return mav;
+	}
+	
+	@PostMapping("/updateLibro")
+	public ModelAndView updateAutor(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(libro.toString());
 		
+		if(bindingResult.hasErrors()) {
+			mav.setViewName("libro/editarLibro");
+			mav.addObject("generos", generoService.todosGeneros());
+			
+			if(auth != null ) {
+				Usuario usuario = (Usuario) auth.getPrincipal();
+				mav.addObject("usuario", usuario);
+			}
+			return mav;
+		}
+		
+		libroService.update(libro);
+
+		mav.setViewName("redirect:/libro/ver/" + libro.getIsbn());
+		return mav;
+	}
+	
+	@GetMapping("/borrar/{libro}")
+	public ModelAndView borrarLibro(@PathVariable Libro libro) {
+		ModelAndView mav = new ModelAndView();
+		
+		estadoLibUsService.deleteByLibro(libro.getIsbn());
+		libroService.delete(libro);
+		
+		mav.setViewName("redirect:/autor/ver/" + libro.getAutor().getId());
 		return mav;
 	}
 }

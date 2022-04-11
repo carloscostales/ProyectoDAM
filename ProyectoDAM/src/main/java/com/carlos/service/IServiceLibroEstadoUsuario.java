@@ -14,5 +14,7 @@ public interface IServiceLibroEstadoUsuario {
 	
 	public void deleteById(Integer id);
 	
+	public void deleteByLibro(String isbn);
+	
 	public LibroEstadoUsuario estadoDeLibro(Libro libro, Usuario usuario);
 }

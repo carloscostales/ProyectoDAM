@@ -14,25 +14,30 @@ public class ServiceLibro implements IServiceLibro {
 	@Autowired
 	private LibroDAO libroDAO;
 
-	@Override
-	public List<Libro> listarLibros() {
-		
-		return (List<Libro>) libroDAO.findAll();
-	}
 
-	@Override
-	public List<Libro> listarLibrosAutor(Integer id) {
-		
-		return (List<Libro>) libroDAO.listarLibros(id);
-	}
-	
 	@Override
 	public void add(Libro libro) {
 		libroDAO.save(libro);
 	}
 
 	@Override
+	public void update(Libro libro) {
+		if(libroDAO.existsById(libro.getIsbn()))
+			libroDAO.save(libro);
+	}
+	
+	@Override
 	public void delete(Libro libro) {
-		libroDAO.delete(libro);
+		libroDAO.borrarPorIsbn(libro.getIsbn());
+	}
+
+	@Override
+	public List<Libro> listarLibros() {
+		return (List<Libro>) libroDAO.findAll();
+	}
+
+	@Override
+	public List<Libro> listarLibrosAutor(Integer id) {
+		return (List<Libro>) libroDAO.listarLibros(id);
 	}
 }

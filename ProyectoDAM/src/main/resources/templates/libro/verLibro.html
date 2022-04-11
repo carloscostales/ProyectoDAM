@@ -15,6 +15,10 @@
 		<div class="container">
 			<h1 class="text-center mt-3" th:text="${libro.titulo}"> </h1>
 			
+			<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+				<a class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#borrarModal">Borrar libro</a>
+		    	<a class="btn btn-tertiary float-end" th:href="@{/libro/editar/{libro}(libro=${libro.isbn})}">Editar libro</a>
+		    </div>
 			<div sec:authorize="isAuthenticated()">
 				<div th:if="${leuActual != null}">
 					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cambiarEstadoModal" th:text="${leuActual.estado.nombre}">
@@ -68,14 +72,33 @@
 				</div>
 			</div>
 			
-			<ul class="list-group list-group-flush">
+			<ul class="list-group list-group-flush mb-3">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Género: </b><span th:text="${libro.genero.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Nº de páginas: </b><span th:text="${libro.paginas}"></span></li>
 			</ul>
 			<p style="white-space: pre-wrap;" th:text="${libro.sinopsis}"></p>
-			
+		</div>
+		
+		<!-- BORRAR MODAL -->
+		<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content text-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title text-dark" id="exampleModalLabel">¿Seguro que quieres borrar el libro '<span th:text="${libro.titulo}" th:remove="tag"></span>'?</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				Si el libro tiene algún estado asociado a algún usuario, también se borrará...
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        				<a type="button" th:href="@{/libro/borrar/{libro}(libro=${libro.isbn})}" class="btn btn-danger">Borrar</a>
+      				</div>
+    			</div>
+  			</div>
 		</div>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>

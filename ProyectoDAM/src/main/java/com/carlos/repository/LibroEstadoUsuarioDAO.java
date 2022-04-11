@@ -16,8 +16,13 @@ public interface LibroEstadoUsuarioDAO extends CrudRepository<LibroEstadoUsuario
 	@Query(value="SELECT * FROM libro_estado_usuario where libro_isbn = :isbn and usuario_nombre_usuario = :nombreUsuario", nativeQuery = true)
 	LibroEstadoUsuario estadoDeLibro(@Param("isbn") String isbn, @Param("nombreUsuario") String nombreUsuario);
 	
-    @Query(value="DELETE FROM libro_estado_usuario  WHERE id = :id", nativeQuery=true)
+    @Query(value="DELETE FROM libro_estado_usuario WHERE id = :id", nativeQuery=true)
     @Transactional
     @Modifying
     void borrarPorId(@Param("id") Integer id);
+    
+    @Query(value="DELETE FROM libro_estado_usuario WHERE libro_isbn = :isbn", nativeQuery=true)
+    @Transactional
+    @Modifying
+    void borrarPorIsbn(@Param("isbn") String isbn);
 }

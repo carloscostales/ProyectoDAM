@@ -16,13 +16,11 @@ public class ServiceLibroEstadoUsuario implements IServiceLibroEstadoUsuario {
 	
 	@Override
 	public void add(LibroEstadoUsuario libroEstado) {
-		
 		libroEstadoUsuarioDAO.save(libroEstado);
 	}
 
 	@Override
 	public void update(LibroEstadoUsuario libroEstado) {
-		
 		if(libroEstadoUsuarioDAO.existsById(libroEstado.getId()))
 			libroEstadoUsuarioDAO.save(libroEstado);
 	}
@@ -34,8 +32,12 @@ public class ServiceLibroEstadoUsuario implements IServiceLibroEstadoUsuario {
 
 	@Override
 	public void deleteById(Integer id) {
-		
 		libroEstadoUsuarioDAO.borrarPorId(id);
+	}
+	
+	@Override
+	public void deleteByLibro(String isbn) {
+		libroEstadoUsuarioDAO.borrarPorIsbn(isbn);
 	}
 	
 	@Override

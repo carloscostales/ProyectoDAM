@@ -15,9 +15,8 @@ body {
 }
 
 input[type='text'], input[type='number'], input[type='password'], input[type='date'], textarea, select {
-	background-color: #C09F80 !important;
   	border: none !important;
   	border-bottom: 2px solid white !important;
   	border-right: 2px solid white !important;
-	border-radius: 0 !important;
+	color: black !important;
 }
