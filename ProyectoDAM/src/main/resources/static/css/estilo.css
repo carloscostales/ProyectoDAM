@@ -20,3 +20,12 @@ input[type='text'], input[type='number'], input[type='password'], input[type='da
   	border-right: 2px solid white !important;
 	color: black !important;
 }
+
+option {
+	color: black !important;
+}
+
+.dropdown-menu {
+	background-color: #C09F80;
+}
+

@@ -51,7 +51,7 @@ public class Autor {
 	
 	@Column
 	@NotBlank(message = "La biografía no puede estar vacía.")
-	@Length(max = 1000)
+	@Length(max = 2000)
 	private String bio;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
