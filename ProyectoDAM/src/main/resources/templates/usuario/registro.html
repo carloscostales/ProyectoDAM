@@ -18,7 +18,7 @@
 			
 			<h1 class="text-center">NUEVO USUARIO</h1>
 			
-			<form action="#" th:action="@{/usuarios/addUsuario}" th:object="${usuario}" method="post">
+			<form action="#" th:action="@{/usuario/addUsuario}" th:object="${usuario}" method="post">
 				<div class="mb-3">
 				    <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
 				    <input type="text" class="form-control" th:field="*{nombreUsuario}" id="nombreUsuario" placeholder="Nombre de usuario">

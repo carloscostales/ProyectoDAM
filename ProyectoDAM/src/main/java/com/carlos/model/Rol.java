@@ -13,6 +13,9 @@ import lombok.Setter;
 
 @Entity(name="roles")
 public class Rol {
+	
+	public Rol() {
+	}
 
 	@Id
 	private String nombre = "USER";

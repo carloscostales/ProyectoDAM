@@ -1,11 +1,14 @@
 package com.carlos.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,6 +79,12 @@ public class UsuarioController {
 		
 		Rol rol = new Rol();
 		usuario.setRol(rol);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		usuario.setRegistrado(sdf.format(new Date()));
+
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		usuario.setContrasena(passwordEncoder.encode(usuario.getPassword()));
 		
 		usuarioService.add(usuario);
 		

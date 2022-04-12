@@ -56,6 +56,9 @@ public class Usuario implements UserDetails{
 
 	@Column
 	private String ultimoLogin;
+	
+	@Column
+	private String registrado;
 
 	@ManyToOne
 	private Rol rol = new Rol();
@@ -113,6 +116,14 @@ public class Usuario implements UserDetails{
 
 	public void setUltimoLogin(String ultimoLogin) {
 		this.ultimoLogin = ultimoLogin;
+	}
+
+	public String getRegistrado() {
+		return registrado;
+	}
+
+	public void setRegistrado(String registrado) {
+		this.registrado = registrado;
 	}
 
 	public Rol getRol() {
