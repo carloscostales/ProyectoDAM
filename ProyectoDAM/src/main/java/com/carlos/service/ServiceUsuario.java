@@ -16,19 +16,22 @@ public class ServiceUsuario implements IServiceUsuario {
 	
 	@Override
 	public void add(Usuario usuario) {
-		
 		usuarioDAO.save(usuario);
 	}
 
 	@Override
+	public void update(Usuario usuario) {
+		if(usuarioDAO.existsById(usuario.getNombreUsuario()))
+			usuarioDAO.save(usuario);
+	}
+	
+	@Override
 	public void delete(Usuario usuario) {
-		
 		usuarioDAO.delete(usuario);
 	}
 	
 	@Override
 	public void deleteById(String nombreUsuario) {
-		
 		usuarioDAO.deleteById(nombreUsuario);
 	}
 
@@ -36,5 +39,10 @@ public class ServiceUsuario implements IServiceUsuario {
 	public List<Usuario> todosUsuarios() {
 		
 		return (List<Usuario>) usuarioDAO.findAll();
+	}
+
+	@Override
+	public Usuario buscarNombreUsuario(String nombreUsuario) {
+		return usuarioDAO.buscarNombreUsuario(nombreUsuario);
 	}
 }

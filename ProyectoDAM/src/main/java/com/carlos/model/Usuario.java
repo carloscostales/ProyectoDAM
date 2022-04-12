@@ -54,6 +54,9 @@ public class Usuario implements UserDetails{
 	@NotBlank(message = "El campo apellidos no puede estar vacío.")
 	private String apellidos;
 
+	@Column
+	private String ultimoLogin;
+
 	@ManyToOne
 	private Rol rol = new Rol();
 	
@@ -103,6 +106,14 @@ public class Usuario implements UserDetails{
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+	
+	public String getUltimoLogin() {
+		return ultimoLogin;
+	}
+
+	public void setUltimoLogin(String ultimoLogin) {
+		this.ultimoLogin = ultimoLogin;
+	}
 
 	public Rol getRol() {
 		return rol;
@@ -110,8 +121,24 @@ public class Usuario implements UserDetails{
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}	
+
+	public Set<Seguir> getSeguir() {
+		return seguir;
 	}
-	
+
+	public void setSeguir(Set<Seguir> seguir) {
+		this.seguir = seguir;
+	}
+
+	public Set<Seguir> getLibro_estado_usuario() {
+		return libro_estado_usuario;
+	}
+
+	public void setLibro_estado_usuario(Set<Seguir> libro_estado_usuario) {
+		this.libro_estado_usuario = libro_estado_usuario;
+	}
+
 	public String getNombreCompleto() {
 		return nombre + " " + apellidos;
 	}
