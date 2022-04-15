@@ -18,7 +18,7 @@
 			
 			<h1 class="text-center">NUEVO AUTOR</h1>
 			
-			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post">
+			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="nombre" class="form-label">Nombre</label>
 					<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
@@ -41,6 +41,12 @@
 					<label for="bio" class="form-label">Biografía</label>
 					<textarea class="form-control" id="bio" th:field="*{bio}" rows="5" placeholder="Biografia"></textarea>
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
+				</div>
+				
+				<div class="mb-3">
+					<label for="foto" class="form-label">Foto</label>
+				    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/png, image/gif, image/jpeg" >
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small>
 				</div>
 				
 				<button type="submit" class="btn btn-success">Adelante</button>

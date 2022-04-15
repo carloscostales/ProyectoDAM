@@ -1,5 +1,11 @@
 package com.carlos.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,12 +13,15 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Autor;
@@ -94,21 +103,41 @@ public class AutorController {
 	}
 	
 	@PostMapping("/addAutor")
-	public ModelAndView addGenero(@Valid @ModelAttribute Autor autor, BindingResult bindingResult, Authentication auth) {
+	public ModelAndView addGenero(@Valid @ModelAttribute Autor autor, BindingResult bindingResult, @RequestParam("foto") MultipartFile multipartFile, Authentication auth) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		
 		if(bindingResult.hasErrors()) {
-			mav.setViewName("autor/nuevoAutor");
-			
-			if(auth != null) {
-				Usuario usuario = (Usuario) auth.getPrincipal();
-				mav.addObject("usuario", usuario);
+			if (bindingResult.hasFieldErrors("foto") && bindingResult.getErrorCount() == 1) {
+				System.out.println("tiene");
+				
+			} else {
+				mav.setViewName("autor/nuevoAutor");
+				
+				if(auth != null) {
+					Usuario usuario = (Usuario) auth.getPrincipal();
+					mav.addObject("usuario", usuario);
+				}
+				return mav;
 			}
-			
-			return mav;
 		}
 		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		autor.setFoto(fileName);
 		autorService.add(autor);
+
+		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + autor.getId();
+		Path uploadPath = Paths.get(uploadDir);
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH - " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			
+		}
 		
 		mav.setViewName("redirect:/autor/autores");
 		return mav;
