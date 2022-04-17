@@ -19,8 +19,9 @@
 			<h1 class="text-center">EDITAR AUTOR</h1>
 			
 			<form th:action="@{/autor/updateAutor}" th:object="${autor}" method="post">
-				<div class="mb-3">
-					<input type="text" class="form-control d-none" th:field="*{id}" id="id">
+				<div class="d-none">
+					<input type="text" class="form-control" th:field="*{id}" id="id">
+					<input type="text" class="form-control" th:field="*{foto}" id="foto">
 				</div>
 				<div class="mb-3">
 					<label for="nombre" class="form-label">Nombre</label>

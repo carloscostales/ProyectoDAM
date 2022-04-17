@@ -45,8 +45,8 @@
 				
 				<div class="mb-3">
 					<label for="foto" class="form-label">Foto</label>
-				    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/png, image/gif, image/jpeg" >
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small>
+				    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/*" >
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
 				</div>
 				
 				<button type="submit" class="btn btn-success">Adelante</button>
@@ -55,5 +55,19 @@
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+		<script>
+			$(document).ready(function () {
+				$('button[type=submit]').prop('disabled', true);
+				
+				$('#foto').on("change", function(){
+					 if (!$("#foto").val()) {
+						$('button[type=submit]').prop('disabled', true);
+					} else {
+						$('button[type=submit]').prop('disabled', false);
+					}
+				});
+			})
+		</script>
 	</body>
 </html>

@@ -57,7 +57,6 @@ public class Autor {
 	private String bio;
 	
 	@Column(nullable=true)
-	@NotEmpty
 	private String foto;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
