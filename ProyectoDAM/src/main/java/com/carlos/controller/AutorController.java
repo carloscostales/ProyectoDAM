@@ -177,6 +177,32 @@ public class AutorController {
 		return mav;
 	}
 	
+	@PostMapping("/changeFoto")
+	public ModelAndView changeFoto(@ModelAttribute Autor autor, BindingResult bindingResult, @RequestParam("foto") MultipartFile multipartFile) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		autor.setFoto(fileName);
+		autorService.add(autor);
+
+		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + autor.getId();
+		Path uploadPath = Paths.get(uploadDir);
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH - " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			
+		}
+		
+		mav.setViewName("redirect:/autor/ver/" + autor.getId());
+		return mav;
+	}
+	
 	@GetMapping("/borrarAutor/{autor}")
 	public ModelAndView borrarAutor(@PathVariable Autor autor) {
 		

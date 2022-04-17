@@ -18,6 +18,7 @@
 		    	<a class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#borrarModal">Borrar autor</a>
 		    	<a class="btn btn-primary float-end" th:href="@{/libro/nuevoLibro/{autor}(autor=${autor.id})}">Nuevo libro</a>
 		    	<a class="btn btn-tertiary float-end" th:href="@{/autor/editar/{autor}(autor=${autor.id})}">Editar autor</a>
+		    	<a class="btn btn-tertiary float-end" data-bs-toggle="modal" data-bs-target="#cambiarFotoModal">Cambiar foto</a>
 		    </div>
 		    
 		    <div sec:authorize="isAuthenticated()">
@@ -91,6 +92,79 @@
   			</div>
 		</div>
 
+		<!-- CAMBIAR FOTO MODAL -->
+		<div class="modal fade" id="cambiarFotoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content bg-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel"><span th:text="${autor.nombre}" th:remove="tag"></span>: Cambiar foto</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				<form th:action="@{/autor/changeFoto}" th:object="${autor}" id="cambiarFotoForm" method="post" enctype="multipart/form-data">
+							<div class="d-none">
+								<input type="text" class="form-control" th:field="*{id}" id="id">
+								<input type="text" class="form-control" th:field="*{nombre}" id="nombre">
+								<input type="text" class="form-control" th:field="*{pais}">
+								<input type="date" class="form-control" th:field="*{fechaNacimiento}" id="fechaNacimiento">
+								<textarea class="form-control" id="bio" th:field="*{bio}" rows="5"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="foto" class="form-label">Foto</label>
+							    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/*" >
+							    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
+							</div>
+							
+							<div class="text-center">
+								<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
+							</div>
+							
+							<button type="submit" id="botonCambio" class="btn btn-success">Adelante</button>
+						</form>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+		<script>
+			$(document).ready(function(){
+				$('#foto').change(function() {
+					file = this.files[0];
+					reader = new FileReader();
+					reader.onload = function(e) {
+						$('#fotoThumbnail').attr('src', e.target.result);
+						$('#fotoThumbnail').attr('width', 300);
+					};
+					reader.readAsDataURL(file);
+				});
+				
+				$('botonCambio').prop('disabled', true);
+				$('#foto').on("change", function(){
+					 if (!$("#foto").val()) {
+						$('#botonCambio').prop('disabled', true);
+					} else {
+						$('#botonCambio').prop('disabled', false);
+					}
+				});
+			});
+			
+			$("#cambiarFotoForm").validate({
+		  		rules: {
+		    		field: {
+		      			required: true,
+		      			extension: "jpg|png|gif|jpeg|svg"
+		    		}
+		  		}
+			});
+			jQuery.extend(jQuery.validator.messages, {
+			  accept: 'Escoge una imagen.'
+			});
+			
+		</script>
 	</body>
 </html>
