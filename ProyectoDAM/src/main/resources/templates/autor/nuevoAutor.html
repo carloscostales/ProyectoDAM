@@ -18,7 +18,7 @@
 			
 			<h1 class="text-center">NUEVO AUTOR</h1>
 			
-			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post" enctype="multipart/form-data">
+			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post" id="nuevoAutorForm" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="nombre" class="form-label">Nombre</label>
 					<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
@@ -48,8 +48,11 @@
 				    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/*" >
 				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
 				</div>
+				<div>
+					<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
+				</div>
 				
-				<button type="submit" class="btn btn-success">Adelante</button>
+				<button type="submit" id="botonNuevo" class="btn btn-success">Adelante</button>
 			</form>
 			
 		</section>
@@ -57,17 +60,34 @@
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 		<script>
-			$(document).ready(function () {
-				$('button[type=submit]').prop('disabled', true);
+			$(document).ready(function(){
+				$('#fotoThumbnail').hide();
 				
-				$('#foto').on("change", function(){
-					 if (!$("#foto").val()) {
-						$('button[type=submit]').prop('disabled', true);
-					} else {
-						$('button[type=submit]').prop('disabled', false);
-					}
+				$('#foto').change(function() {
+					file = this.files[0];
+					reader = new FileReader();
+					reader.onload = function(e) {
+						$('#fotoThumbnail').show();
+						$('#fotoThumbnail').attr('src', e.target.result);
+						$('#fotoThumbnail').attr('width', 300);
+					};
+					reader.readAsDataURL(file);
 				});
-			})
+
+			});
+			
+			$("#nuevoAutorForm").validate({
+		  		rules: {
+		    		field: {
+		      			required: true,
+		      			extension: "jpg|png|gif|jpeg|svg"
+		    		}
+		  		}
+			});
+			jQuery.extend(jQuery.validator.messages, {
+			  accept: 'Escoge una imagen.'
+			});
+			
 		</script>
 	</body>
 </html>
