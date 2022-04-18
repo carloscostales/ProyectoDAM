@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	    <title>Nuevo libros</title>
+	    <title>Nuevo libro</title>
 	    
 	    <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,20 +20,23 @@
 			
 			<h2 th:text="${autor.nombre}" class="text-center"></h2>
 			
-			<form th:action="@{/libro/addLibro}" th:object="${libro}" method="post" class="row">
-				<div class="col-6 mb-3">
+			<form th:action="@{/libro/addLibro}" th:object="${libro}" method="post" id="nuevoLibroForm" class="row" enctype="multipart/form-data">		
+				<div class="d-none">
+				    <input type="text" th:value="${autor.id}">
+				</div>
+				<div class="col-3 mb-3">
 					<label for="isbn" class="form-label">ISBN</label>
 					<input type="text" class="form-control" th:field="*{isbn}" id="isbn" placeholder="ISBN">
 					<small class="form-text text-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></small>
 				</div>
 					
-				<div class="col-6 mb-3">
+				<div class="col-3 mb-3">
 					<label for="titulo" class="form-label">Título</label>
 				    <input type="text" class="form-control" th:field="*{titulo}" id="titulo" placeholder="Título">
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
 				</div>
 				
-				<div class="col-6 mb-3">
+				<div class="col-3 mb-3">
 					<label for="genero" class="form-label">Genero</label>
 					<select name="genero" class="form-control" id="genero">
 					    <option th:each="genero : ${generos}" th:value="${genero.codigo}" th:text="${genero.nombre}" th:selected="false"></option>
@@ -41,9 +44,15 @@
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></small>
 				</div>
 				
+				<div class="col-3 mb-3">
+					<label for="ano" class="form-label">Año</label>
+				    <input type="number" class="form-control" th:field="*{ano}" id="ano" placeholder="Año">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}"></small>
+				</div>
+				
 				<div class="col-6 mb-3">
 					<label for="editorial" class="form-label">Editorial</label>
-				    <input type="text" class="form-control" th:field="*{editorial}" id="titulo" placeholder="Editorial">
+				    <input type="text" class="form-control" th:field="*{editorial}" id="editorial" placeholder="Editorial">
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('editorial')}" th:errors="*{editorial}"></small>
 				</div>
 				
@@ -52,29 +61,58 @@
 				    <input type="number" class="form-control" th:field="*{paginas}" id="paginas" placeholder="Páginas">
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('paginas')}" th:errors="*{paginas}"></small>
 				</div>
-				
-				<div class="col-6 mb-3">
-					<label for="ano" class="form-label">Año</label>
-				    <input type="number" class="form-control" th:field="*{ano}" id="ano" placeholder="Año">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}"></small>
-				</div>
-				
-				<div class="mb-3" hidden>
-					<label for="autor" class="form-label">Autor</label>
-				    <input type="text" th:value="${autor.id}" name="autor" id="autor"/>
-				</div>
-				
-				<div class="mb-3 col-12">
-  					<label for="floatingTextarea2">Sinopsis</label>
+
+				<div class="col-12 mb-3">
+  					<label for="sinopsis">Sinopsis</label>
   					<textarea class="form-control" th:field="*{sinopsis}" placeholder="Sinopsis" id="sinopsis" rows="5"></textarea>
   					<small class="form-text text-danger" th:if="${#fields.hasErrors('sinopsis')}" th:errors="*{sinopsis}"></small>
 				</div>
 				
+				<div class="col-6 mb-3">
+					<label for="portada" class="form-label">Portada</label>
+				    <input type="file" class="form-control text-dark" th:field="*{portada}" id="portada" accept="image/*">
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('portada')}" th:errors="*{portada}"></small> -->
+				</div>
+				<div>
+					<p>Vista previa: </p>
+					<img id="portadaThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{portadaPath}" height="300"/>
+				</div>
 				<button type="submit" class="btn btn-success">Adelante</button>
 			</form>
 			
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+		<script>
+			$(document).ready(function(){
+				$('#portadaThumbnail').hide();
+				
+				$('#portada').change(function() {
+					file = this.files[0];
+					reader = new FileReader();
+					reader.onload = function(e) {
+						$('#portadaThumbnail').show();
+						$('#portadaThumbnail').attr('src', e.target.result);
+						$('#portadaThumbnail').attr('height', 300);
+					};
+					reader.readAsDataURL(file);
+				});
+
+			});
+			
+			$("#nuevoLibroForm").validate({
+		  		rules: {
+		    		field: {
+		      			required: true,
+		      			extension: "jpg|jpeg|png|gif|svg"
+		    		}
+		  		}
+			});
+			jQuery.extend(jQuery.validator.messages, {
+			  accept: 'Escoge una imagen.'
+			});
+			
+		</script>
 	</body>
 </html>

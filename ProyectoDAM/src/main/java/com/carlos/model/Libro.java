@@ -1,5 +1,6 @@
 package com.carlos.model;
 
+import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,13 +27,14 @@ public class Libro {
 	public Libro() {
 	}
 
-	public Libro(String isbn, String titulo, String editorial, Integer ano, Integer paginas, String sinopsis, Autor autor, Genero genero) {
+	public Libro(String isbn, String titulo, String editorial, Integer ano, Integer paginas, String sinopsis, String portada, Autor autor, Genero genero) {
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.editorial = editorial;
 		this.ano = ano;
 		this.paginas = paginas;
 		this.sinopsis = sinopsis;
+		this.portada = portada;
 		this.autor = autor;
 		this.genero = genero;
 	}
@@ -61,8 +63,12 @@ public class Libro {
 	private Integer ano;
 	
 	@Column
+	@NotBlank(message="La sinopsis no puede ser nula.")
 	@Length(max=10000)
 	private String sinopsis;
+	
+	@Column
+	private String portada;
 	
 	@ManyToOne
 	private Autor autor = new Autor();
@@ -136,6 +142,22 @@ public class Libro {
 
 	public void setGenero(Genero genero) {
 		this.genero = genero;
+	}
+
+	public String getPortada() {
+		return portada;
+	}
+
+	public void setPortada(String portada) {
+		this.portada = portada;
+	}
+
+
+	@Transient
+	public String getPortadaPath() {
+		if (portada == null || isbn == null) return null;
+			
+		return "/img/autor-fotos/" + autor.getId() + "/libros-portadas/" + portada;
 	}
 
 	@Override

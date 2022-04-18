@@ -1,16 +1,26 @@
 package com.carlos.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Autor;
@@ -95,22 +105,42 @@ public class LibroController {
 	}
 	
 	@PostMapping("/addLibro")
-	public ModelAndView addLibro(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, Autor autor, Authentication auth) {
+	public ModelAndView addLibro(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, @RequestParam("portada") MultipartFile multipartFile, Autor autor, Authentication auth) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		
 		if(bindingResult.hasErrors()) {
-			mav.setViewName("libro/nuevoLibro");
-			
-			if(auth != null) {
-				Usuario usuario = (Usuario) auth.getPrincipal();
-				mav.addObject("usuario", usuario);
+			if (bindingResult.hasFieldErrors("portada") && bindingResult.getErrorCount() == 1) {
+				System.out.println("tiene");
+				
+			} else {
+				mav.setViewName("libro/nuevoLibro");
+				mav.addObject("generos", generoService.todosGeneros());
+				
+				if(auth != null) {
+					Usuario usuario = (Usuario) auth.getPrincipal();
+					mav.addObject("usuario", usuario);
+				}
+				return mav;
 			}
-			
-			mav.addObject("generos", generoService.todosGeneros());
-			return mav;
 		}
 		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		libro.setPortada(fileName);
 		libroService.add(libro);
+		
+		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + autor.getId() +"/libros-portadas";
+		Path uploadPath = Paths.get(uploadDir);
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH - " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			
+		}
 		
 		mav.setViewName("redirect:/autor/ver/" + autor.getId());
 		return mav;
@@ -149,6 +179,32 @@ public class LibroController {
 		
 		libroService.update(libro);
 
+		mav.setViewName("redirect:/libro/ver/" + libro.getIsbn());
+		return mav;
+	}
+	
+	@PostMapping("/changePortada")
+	public ModelAndView changePortada(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, @RequestParam("portada") MultipartFile multipartFile) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		libro.setPortada(fileName);
+		libroService.add(libro);
+		
+		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + libro.getAutor().getId() +"/libros-portadas";
+		Path uploadPath = Paths.get(uploadDir);
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH - " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			
+		}
+		
 		mav.setViewName("redirect:/libro/ver/" + libro.getIsbn());
 		return mav;
 	}

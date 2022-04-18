@@ -18,6 +18,7 @@
 			<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 				<a class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#borrarModal">Borrar libro</a>
 		    	<a class="btn btn-tertiary float-end" th:href="@{/libro/editar/{libro}(libro=${libro.isbn})}">Editar libro</a>
+		    	<a class="btn btn-tertiary float-end" data-bs-toggle="modal" data-bs-target="#cambiarPortadaModal">Cambiar portada</a>
 		    </div>
 			<div sec:authorize="isAuthenticated()">
 				<div th:if="${leuActual != null}">
@@ -72,6 +73,8 @@
 				</div>
 			</div>
 			
+			<img class="" th:src="@{${libro.portadaPath}}" height="300">
+			
 			<ul class="list-group list-group-flush mb-3">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
@@ -80,6 +83,47 @@
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Nº de páginas: </b><span th:text="${libro.paginas}"></span></li>
 			</ul>
 			<p style="white-space: pre-wrap;" th:text="${libro.sinopsis}"></p>
+		</div>
+		
+		
+		<!-- CAMBIAR PORTADA MODAL -->
+		<div class="modal fade" id="cambiarPortadaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content bg-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel"><span th:text="${libro.titulo}" th:remove="tag"></span>: Cambiar portada</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				<form th:action="@{/libro/changePortada}" th:object="${libro}" id="cambiarPortadaForm" method="post" enctype="multipart/form-data">
+							<div class="d-none">
+								<input type="text" class="form-control" th:field="*{isbn}">
+								<input type="text" class="form-control" th:field="*{titulo}">
+								<input type="text" class="form-control" th:field="*{paginas}">
+								<input type="text" class="form-control" th:field="*{ano}">
+								<input type="text" class="form-control" th:field="*{editorial}">
+								<input type="text" class="form-control" th:field="*{genero.codigo}">
+								<input type="text" class="form-control" th:field="*{autor.id}">
+								<textarea class="form-control" th:field="*{sinopsis}"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="portada" class="form-label">Portada</label>
+							    <input type="file" class="form-control text-dark" name="portada" id="portada" accept="image/*" >
+							    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
+							</div>
+							
+							<div class="text-center">
+								<img id="portadaThumbnail" class="rounded my-3" alt="Vista previa portada" th:src="*{portadaPath}" width="300"/>
+							</div>
+							
+							<button type="submit" id="botonCambio" class="btn btn-success">Adelante</button>
+						</form>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>
 		</div>
 		
 		<!-- BORRAR MODAL -->
@@ -102,5 +146,41 @@
 		</div>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+		<script>
+			$(document).ready(function(){
+				$('#portada').change(function() {
+					file = this.files[0];
+					reader = new FileReader();
+					reader.onload = function(e) {
+						$('#portadaThumbnail').attr('src', e.target.result);
+						$('#portadaThumbnail').attr('width', 300);
+					};
+					reader.readAsDataURL(file);
+				});
+				
+				$('#botonCambio').prop('disabled', true);
+				$('#portada').on("change", function(){
+					 if (!$("#portada").val()) {
+						$('#botonCambio').prop('disabled', true);
+					} else {
+						$('#botonCambio').prop('disabled', false);
+					}
+				});
+			});
+			
+			$("#cambiarPortadaForm").validate({
+		  		rules: {
+		    		field: {
+		      			required: true,
+		      			extension: "jpg|jpeg|png|gif|svg"
+		    		}
+		  		}
+			});
+			jQuery.extend(jQuery.validator.messages, {
+			  accept: 'Escoge una imagen.'
+			});
+			
+		</script>
 	</body>
 </html>
