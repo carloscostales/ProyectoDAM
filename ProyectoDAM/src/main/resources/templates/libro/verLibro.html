@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			
-			<img class="" th:src="@{${libro.portadaPath}}" height="300">
+			<img class="" th:src="@{${libro.portadaPath}}" height="450">
 			
 			<ul class="list-group list-group-flush mb-3">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
@@ -113,7 +113,7 @@
 							</div>
 							
 							<div class="text-center">
-								<img id="portadaThumbnail" class="rounded my-3" alt="Vista previa portada" th:src="*{portadaPath}" width="300"/>
+								<img id="portadaThumbnail" class="rounded my-3" alt="Vista previa portada" th:src="*{portadaPath}" height="300"/>
 							</div>
 							
 							<button type="submit" id="botonCambio" class="btn btn-success">Adelante</button>
