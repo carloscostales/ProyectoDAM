@@ -49,6 +49,7 @@
 				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
 				</div>
 				<div>
+					<p>Vista previa: </p>
 					<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
 				</div>
 				
@@ -80,7 +81,7 @@
 		  		rules: {
 		    		field: {
 		      			required: true,
-		      			extension: "jpg|png|gif|jpeg|svg"
+		      			extension: "jpg|jpeg|png|gif|svg"
 		    		}
 		  		}
 			});
