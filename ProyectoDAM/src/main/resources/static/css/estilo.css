@@ -29,3 +29,13 @@ option {
 	background-color: #C09F80;
 }
 
+br {
+	 background-color : red;
+}
+
+.text-truncate {
+	-webkit-line-clamp: 6;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
