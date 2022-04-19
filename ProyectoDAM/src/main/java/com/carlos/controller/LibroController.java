@@ -104,8 +104,8 @@ public class LibroController {
 		return mav;
 	}
 	
-	@PostMapping("/addLibro")
-	public ModelAndView addLibro(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, @RequestParam("portada") MultipartFile multipartFile, Autor autor, Authentication auth) throws IOException {
+	@PostMapping("/addLibro/{autor}")
+	public ModelAndView addLibro(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, Autor autor, @RequestParam("portada") MultipartFile multipartFile, Authentication auth) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		
 		if(bindingResult.hasErrors()) {
@@ -128,7 +128,7 @@ public class LibroController {
 		libro.setPortada(fileName);
 		libroService.add(libro);
 		
-		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + autor.getId() +"/libros-portadas";
+		String uploadDir = "./src/main/resources/static/img/autor-fotos/" + libro.getAutor().getId() +"/libros-portadas";
 		Path uploadPath = Paths.get(uploadDir);
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
@@ -142,7 +142,7 @@ public class LibroController {
 			
 		}
 		
-		mav.setViewName("redirect:/autor/ver/" + autor.getId());
+		mav.setViewName("redirect:/autor/ver/" + libro.getAutor().getId());
 		return mav;
 	}
 	

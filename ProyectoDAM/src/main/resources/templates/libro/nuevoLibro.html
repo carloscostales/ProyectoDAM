@@ -20,8 +20,8 @@
 			
 			<h2 th:text="${autor.nombre}" class="text-center"></h2>
 			
-			<form th:action="@{/libro/addLibro}" th:object="${libro}" method="post" id="nuevoLibroForm" class="row" enctype="multipart/form-data">		
-				<div class="d-none">
+			<form th:action="@{/libro/addLibro/{autor}(autor=${autor.id})}" th:object="${libro}" method="post" id="nuevoLibroForm" class="row" enctype="multipart/form-data">		
+				<div class="">
 				    <input type="text" th:value="${autor.id}">
 				</div>
 				<div class="col-3 mb-3">

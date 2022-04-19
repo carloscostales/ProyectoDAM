@@ -56,23 +56,28 @@
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Fecha de nacimiento: </b><span th:text="${autor.fechaNacimiento}"></span></li>
 			</ul>
 			
-			<p th:text="${autor.bio}" class="text-justify mb-5" style="text-indent: 1rem;"></p>
+			<p th:text="${autor.bio}" class="text-justify mb-5" style="white-space: pre-line;"></p>
 			
 			<h2 class="mb-5">OBRAS</h2>
-			
-			<div class="row row-cols-4 g-4">
-				<div class="col" th:each="libro: ${libros}">
-				    <div class="card h-100 bg-transparent">
-				    	<img th:src="@{${libro.portadaPath}}" class="card-img-top" th:alt="${libro.titulo}">
-				       	<div class="card-body">
-				    		<h5 class="card-title" th:text="${libro.titulo}">Titulo</h5>
-				    		<h6 class="card-subtitle mb-2 text-muted" th:text="${libro.genero.codigo}"> genero </h6>
-				    		<p class="card-text" th:text="${libro.autor.nombre}"> contenido </p>
-							<a class="btn btn-primary" th:href="@{/libro/ver/{libro}(libro = ${libro.isbn})}">Ver</a>
-				       	</div>
-				    </div>
+			<div th:switch="${#lists.isEmpty(libros)}">
+				<div th:case="false" class="row row-cols-4 g-4">
+					<div class="col" th:each="libro: ${libros}">
+					    <div class="card h-100 bg-transparent">
+					    	<img th:src="@{${libro.portadaPath}}" class="card-img-top" th:alt="${libro.titulo}">
+					       	<div class="card-body">
+					    		<h5 class="card-title" th:text="${libro.titulo}">Titulo</h5>
+					    		<h6 class="card-subtitle mb-2 text-muted" th:text="${libro.genero.codigo}"> genero </h6>
+					    		<p class="card-text" th:text="${libro.autor.nombre}"> contenido </p>
+								<a class="btn btn-primary" th:href="@{/libro/ver/{libro}(libro = ${libro.isbn})}">Ver</a>
+					       	</div>
+					    </div>
+					</div>
+				</div>
+				<div th:case="true">
+					<h3>Este autor todavía no tiene libros.</h3>
 				</div>
 			</div>
+			
 		</div>
 		
 		
