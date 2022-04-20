@@ -21,7 +21,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="libros")
+@Table(name="libro")
 public class Libro {
 	
 	public Libro() {

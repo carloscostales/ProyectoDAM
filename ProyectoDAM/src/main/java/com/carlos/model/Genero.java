@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name="generos")
+@Table(name="genero")
 public class Genero {
 
 	public Genero() { }

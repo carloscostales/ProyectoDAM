@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name="roles")
+@Entity(name="rol")
 public class Rol {
 	
 	public Rol() {

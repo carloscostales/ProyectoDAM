@@ -22,7 +22,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name="usuarios")
+@Table(name="usuario")
 public class Usuario implements UserDetails{
 	
 	public Usuario() { }

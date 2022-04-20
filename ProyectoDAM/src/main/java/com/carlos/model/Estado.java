@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="estados")
+@Table(name="estado")
 public class Estado {
 	
 	public Estado() {
