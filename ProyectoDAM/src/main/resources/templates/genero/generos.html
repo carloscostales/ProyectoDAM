@@ -15,7 +15,7 @@
 
 	    <div class="container text-center">
 	    	<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-	    		<a class="btn btn-primary float-end" th:href="@{/genero/nuevoGenero}">Nuevo genero</a>
+	    		<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#nuevoGeneroModal">Nuevo género</button>
 	    	</div>
 	    	
 	    	<h1 class="mt-3">GENEROS</h1>
@@ -44,6 +44,40 @@
 			<a th:href="@{/}">Volver al inicio</a>
 	    </div>
 	    
+	    <!-- NUEVO GENERO MODAL -->
+		<div class="modal fade" id="nuevoGeneroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+  			<div class="modal-dialog">
+    			<div class="modal-content bg-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel">Nuevo género</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				<form th:action="@{/genero/addGenero}" th:object="${nuevoGenero}" method="post">
+							<div class="mb-3">
+								<label for="codigo" class="form-label">Código</label>
+								<input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código" maxlength="3" />
+					    		<small class="form-text text-danger" id="errorCodigo"></small>
+							</div>
+								
+							<div class="mb-3">
+								<label for="nombre" class="form-label">Nombre del género</label>
+							    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+					    		<small class="form-text text-danger" id="errorNombre"></small>
+							</div>
+							
+							<button type="submit" id="botonNuevo" class="btn btn-success">Adelante</button>
+						</form>
+        				
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+	    
 	    <footer th:replace="../fragments/footer.html :: footer"></footer>
+	    <script src="/js/generos.js"></script>
 	</body>
 </html>
