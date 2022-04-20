@@ -1,0 +1,11 @@
+
+/* Transicion al salir del hover */
+#libro {
+	-webkit-transition: 0.6s;
+}
+
+/* Transicion al hover */
+#libro:hover {
+	background-color: #171717;
+  	transition: 0.6s;
+}

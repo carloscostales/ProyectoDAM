@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+		<link rel="stylesheet" th:href="@{/css/verAutor.css}">
 	</head>
 	
 	<body>
@@ -62,7 +64,7 @@
 			<h2 class="mb-5">OBRAS</h2>
 			<div th:switch="${#lists.isEmpty(libros)}">
 				<div th:case="false">
-					<div th:each="libro: ${libros}" class="row mb-5">
+					<div th:each="libro: ${libros}" id="libro" class="row mb-5 py-2">
 						<div class="col-lg-2 col-md-3 col-xs-3">
 							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
 						</div>
@@ -70,7 +72,7 @@
 							<h3 th:text="${libro.titulo}"></h3>
 							<p th:text="${libro.autor.nombre}"></p>
 							<p th:text="${libro.sinopsis}" id="sinopsis" class="text-truncate" style="white-space: pre-line;"></p>
-
+							
 							<a class="btn btn-primary" th:href="@{/libro/ver/{isbn}(isbn=${libro.isbn})}">Ver libro</a>
 						</div>
 						
