@@ -8,9 +8,7 @@ public interface IServiceGenero {
 
 	public void add(Genero genero);
 	
-	public void delete(Genero genero);
-	
-	public void deleteById(String codGenero);
+	public void borrarPorCodigo(Genero genero);
 	
 	public List<Genero> todosGeneros();
 }

@@ -16,26 +16,16 @@ public class ServiceGenero implements IServiceGenero {
 
 	@Override
 	public void add(Genero genero) {
-		
 		generoDAO.save(genero);
 	}
 
 	@Override
-	public void delete(Genero genero) {
-		
-		generoDAO.delete(genero);
-	}
-
-	@Override
-	public void deleteById(String codGenero) {
-		
-		generoDAO.deleteById(codGenero);
+	public void borrarPorCodigo(Genero genero) {
+		generoDAO.borrarPorCodigo(genero.getCodigo());
 	}
 
 	@Override
 	public List<Genero> todosGeneros() {
 		return  (List<Genero>) generoDAO.findAll();
 	}
-
-	
 }

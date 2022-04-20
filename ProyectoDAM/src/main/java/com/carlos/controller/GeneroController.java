@@ -79,4 +79,15 @@ public class GeneroController {
 		
 		return mav;
 	}
+	
+	@GetMapping("/borrarGenero/{genero}")
+	public ModelAndView deleteGenero(@ModelAttribute Genero genero) {
+		ModelAndView mav = new ModelAndView();
+		
+		generoService.borrarPorCodigo(genero);
+		
+		mav.setViewName("redirect:/genero/generos");
+		
+		return mav;
+	}
 }
