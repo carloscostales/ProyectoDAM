@@ -27,24 +27,28 @@
 			    	<img class="rounded" th:src="@{${autor.fotoPath}}" style="max-width: 100%;">
 			    </div>
 			    <div class="col-9 mt-3">
-			    	<div class="row">
-					    <h1 class="col-6" th:text="${autor.nombre}"> NOMBRE AUTOR </h1>
-					    <div sec:authorize="isAuthenticated()" th:remove="tag">
-					    	<div th:if="${seguido}" class="col-6">
-					    		<a type="button" class="btn btn-warning" th:href="@{/seguir/dejarSeguir/{seguir}(seguir=${seguir.id})}">Seguido</a>
-					    	</div>
-					    	
-					    	<div th:unless="${seguido}" class="col-6">
-					    		<form class="m-0" th:action="@{/seguir/addSeguir}" th:object="${seguir}" method="post">
-									<div class="d-none">
-										<label for="autor" class="form-label">id</label>
-										<input type="text" class="form-control" th:value="${autor.id}" name="autor" id="autor">
-									</div>
-									
-									<button type="submit" class="btn btn-outline-warning">Seguir</button>
-								</form>
-					    	</div>
-					    </div>
+			    	<div>
+					    <h1><span th:text="${autor.nombre}" th:remove="tag"></span> 
+					    	<span class="badge bg-transparent">
+						    	<div sec:authorize="isAuthenticated()" th:remove="tag">
+							    	<div th:if="${seguido}" class="col-6">
+							    		<a type="button" class="btn btn-warning" th:href="@{/seguir/dejarSeguir/{seguir}(seguir=${seguir.id})}">Seguido</a>
+							    	</div>
+							    	
+							    	<div th:unless="${seguido}" class="col-6">
+							    		<form class="m-0" th:action="@{/seguir/addSeguir}" th:object="${seguir}" method="post">
+											<div class="d-none">
+												<label for="autor" class="form-label">id</label>
+												<input type="text" class="form-control" th:value="${autor.id}" name="autor" id="autor">
+											</div>
+											
+											<button type="submit" class="btn btn-outline-warning">Seguir</button>
+										</form>
+							    	</div>
+						    	</div>
+						    </span>
+					   </h1>
+					    
 				    </div>
 				    
 					<p class="col-12"><span th:text="${numeroSeguidores}" th:remove="tag"></span> seguidores</p>

@@ -18,41 +18,45 @@
 			
 			<h1 class="text-center">NUEVO AUTOR</h1>
 			
-			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post" id="nuevoAutorForm" enctype="multipart/form-data">
-				<div class="mb-3">
-					<label for="nombre" class="form-label">Nombre</label>
-					<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
-					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+			<form th:action="@{/autor/addAutor}" th:object="${autor}" method="post" id="nuevoAutorForm" class="row" enctype="multipart/form-data">
+				<div class="col-6">
+					<div class="row">
+						<div class="col-12 mb-3">
+							<label for="nombre" class="form-label">Nombre</label>
+							<input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+							
+						<div class="col-6 mb-3">
+							<label for="pais" class="form-label">Pais</label>
+						    <input type="text" class="form-control" th:field="*{pais}" id="pais" placeholder="Pais">
+						    <small class="form-text text-danger" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
+						</div>
+						
+						<div class="col-6 mb-3">
+							<label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+						    <input type="date" class="form-control" th:field="*{fechaNacimiento}" id="fechaNacimiento" placeholder="Fecha de nacimiento">
+						    <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>
+						</div>
+						
+						<div class="col-12 mb-3">
+							<label for="bio" class="form-label">Biografía</label>
+							<textarea class="form-control" id="bio" th:field="*{bio}" rows="10" placeholder="Biografia"></textarea>
+						    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
+						</div>
+					</div>
 				</div>
-					
-				<div class="mb-3">
-					<label for="pais" class="form-label">Pais</label>
-				    <input type="text" class="form-control" th:field="*{pais}" id="pais" placeholder="Pais">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
+				<div class="col-6">
+					<div class="mb-3">
+						<label for="foto" class="form-label">Foto</label>
+					    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/*" >
+					    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
+					</div>
+					<div>
+						<p>Vista previa: </p>
+						<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
+					</div>
 				</div>
-				
-				<div class="mb-3">
-					<label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
-				    <input type="date" class="form-control" th:field="*{fechaNacimiento}" id="fechaNacimiento" placeholder="Fecha de nacimiento">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>
-				</div>
-				
-				<div class="mb-3">
-					<label for="bio" class="form-label">Biografía</label>
-					<textarea class="form-control" id="bio" th:field="*{bio}" rows="5" placeholder="Biografia"></textarea>
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
-				</div>
-				
-				<div class="mb-3">
-					<label for="foto" class="form-label">Foto</label>
-				    <input type="file" class="form-control text-dark" name="foto" id="foto" accept="image/*" >
-				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" ></small> -->
-				</div>
-				<div>
-					<p>Vista previa: </p>
-					<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
-				</div>
-				
 				<button type="submit" id="botonNuevo" class="btn btn-success">Adelante</button>
 			</form>
 			
