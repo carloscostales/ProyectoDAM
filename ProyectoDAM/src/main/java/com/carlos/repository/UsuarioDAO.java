@@ -10,6 +10,6 @@ import com.carlos.model.Usuario;
 @Repository
 public interface UsuarioDAO extends CrudRepository<Usuario, String> {
 
-	@Query(value="SELECT * FROM usuarios WHERE nombre_usuario = :nombreUsuario", nativeQuery=true)
+	@Query(value="SELECT * FROM usuario WHERE nombre_usuario = :nombreUsuario", nativeQuery=true)
 	Usuario buscarNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
 }
