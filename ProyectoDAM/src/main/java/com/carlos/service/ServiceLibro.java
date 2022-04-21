@@ -44,4 +44,9 @@ public class ServiceLibro implements IServiceLibro {
 	public List<Libro> listarLibrosPorGenero(String codigo) {
 		return (List<Libro>) libroDAO.listarLibrosPorGenero(codigo);
 	}
+
+	@Override
+	public List<Libro> listarLibrosFechaDescendente() {
+		return (List<Libro>) libroDAO.listarLibrosPorFechaDescendente();
+	}
 }

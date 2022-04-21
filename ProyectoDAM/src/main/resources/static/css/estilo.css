@@ -39,3 +39,10 @@ br {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+
+.text-truncate-2 {
+	-webkit-line-clamp: 2;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
