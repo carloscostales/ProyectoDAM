@@ -8,7 +8,11 @@ public interface IServiceGenero {
 
 	public void add(Genero genero);
 	
+	public void update(Genero genero);
+	
 	public void borrarPorCodigo(Genero genero);
 	
 	public List<Genero> todosGeneros();
+
+	
 }

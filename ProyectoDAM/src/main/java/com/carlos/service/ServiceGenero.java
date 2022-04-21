@@ -18,6 +18,12 @@ public class ServiceGenero implements IServiceGenero {
 	public void add(Genero genero) {
 		generoDAO.save(genero);
 	}
+	
+	@Override
+	public void update(Genero genero) {
+		if(generoDAO.existsById(genero.getCodigo()))
+			generoDAO.save(genero);
+	}
 
 	@Override
 	public void borrarPorCodigo(Genero genero) {

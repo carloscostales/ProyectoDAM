@@ -15,4 +15,6 @@ public interface IServiceLibro {
 	public List<Libro> listarLibros();
 	
 	public List<Libro> listarLibrosAutor(Integer id);
+	
+	public List<Libro> listarLibrosPorGenero(String codigo);
 }

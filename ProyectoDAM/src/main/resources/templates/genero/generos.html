@@ -34,8 +34,8 @@
 			        <tr th:each="genero: ${generos}">
 			            <td th:text="${genero.codigo}"> cod </td>
 			            <td th:text="${genero.nombre}"> nombre </td>
-			            <td th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-			            	<a th:href="@{/genero/borrarGenero/{genero}(genero=${genero.codigo})}" class="btn btn-danger btn-sm">Borrar</a>
+			            <td>
+			            	<a th:href="@{/genero/ver/{genero}(genero=${genero.codigo})}" class="btn btn-primary btn-sm">Ver</a>
 			            </td>
 			        </tr>
 			    </tbody>

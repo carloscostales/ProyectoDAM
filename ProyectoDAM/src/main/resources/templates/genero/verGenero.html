@@ -1,0 +1,108 @@
+<html>
+	<head>
+	    <title>Vista de libro</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+		
+		<div class="container">
+			<h1 class="text-center mt-3" th:text="${genero.nombre}"> genero </h1>
+			
+			<div class="row">
+				<div class="col-9">	
+					<h2>OBRAS</h2>
+					<p class="mb-5"> Número de libros: <span th:text="${numeroLibros}" th:remove="tag"></span></p>
+				</div>
+				<div class="col-3 float-end" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+					<button class="btn btn-tertiary" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button>
+					<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrarModal">Borrar</button>
+				</div>
+			</div>
+			
+			<div th:switch="${#lists.isEmpty(librosGenero)}">
+				<div th:case="false">
+					<div th:each="libro: ${librosGenero}" id="libro" class="row mb-5 py-2">
+						<div class="col-lg-2 col-md-3 col-xs-3">
+							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
+						</div>
+						<div class="col-xl-10 col-md-9 col-xs-9">
+							<h3 th:text="${libro.titulo}"></h3>
+							<p th:text="${libro.autor.nombre}"></p>
+							<p th:text="${libro.sinopsis}" id="sinopsis" class="text-truncate" style="white-space: pre-line;"></p>
+							
+							<a class="btn btn-primary" th:href="@{/libro/ver/{isbn}(isbn=${libro.isbn})}">Ver libro</a>
+						</div>
+						
+						</br>
+					</div>
+				</div>
+				
+				<div th:case="true">
+					<h4>Este género todavía no tiene libros.</h4>
+				</div>
+			</div>
+		</div>
+		
+		<!-- EDITAR MODAL -->
+		<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content bg-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel">Editar - <span th:text="${genero.nombre}" th:remove="tag"></span></h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				<form th:action="@{/genero/updateGenero}" th:object="${genero}" id="editarGeneroForm" method="post">
+							<div class="mb-3">
+								<label for="codigo" class="form-label">Código</label>
+								<input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código" maxlength="3" />
+					    		<small class="form-text text-danger" id="errorCodigo"></small>
+							</div>
+								
+							<div class="mb-3">
+								<label for="nombre" class="form-label">Nombre del género</label>
+							    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
+					    		<small class="form-text text-danger" id="errorNombre"></small>
+							</div>
+							
+							<button type="submit" id="botonEditar" class="btn btn-success">Adelante</button>
+						</form>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		
+		
+		<!-- BORRAR MODAL -->
+		<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content text-dark">
+      				<div class="modal-header">
+        				<h5 class="modal-title text-dark" id="exampleModalLabel">¿Seguro que quieres borrar a este género?</h5>
+        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body text-dark">
+        				Si el género tiene algún libro asociado, no se borrará...
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        				<a type="button" th:href="@{/genero/borrarGenero/{genero}(genero=${genero.codigo})}" class="btn btn-danger">Borrar</a>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
+	    <script src="/js/verGenero.js"></script>
+	</body>
+</html>

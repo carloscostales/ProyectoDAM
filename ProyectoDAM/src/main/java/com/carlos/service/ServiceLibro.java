@@ -14,7 +14,6 @@ public class ServiceLibro implements IServiceLibro {
 	@Autowired
 	private LibroDAO libroDAO;
 
-
 	@Override
 	public void add(Libro libro) {
 		libroDAO.save(libro);
@@ -39,5 +38,10 @@ public class ServiceLibro implements IServiceLibro {
 	@Override
 	public List<Libro> listarLibrosAutor(Integer id) {
 		return (List<Libro>) libroDAO.listarLibros(id);
+	}
+
+	@Override
+	public List<Libro> listarLibrosPorGenero(String codigo) {
+		return (List<Libro>) libroDAO.listarLibrosPorGenero(codigo);
 	}
 }
