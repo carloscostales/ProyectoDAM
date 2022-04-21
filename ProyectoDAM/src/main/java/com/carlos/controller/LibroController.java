@@ -68,6 +68,7 @@ public class LibroController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("libro", libro);
+		mav.addObject("librosAutor", libroService.listarLibrosAutor(libro.getAutor().getId()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
@@ -164,7 +165,6 @@ public class LibroController {
 	@PostMapping("/updateLibro")
 	public ModelAndView updateAutor(@Valid @ModelAttribute Libro libro, BindingResult bindingResult, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(libro.toString());
 		
 		if(bindingResult.hasErrors()) {
 			mav.setViewName("libro/editarLibro");
