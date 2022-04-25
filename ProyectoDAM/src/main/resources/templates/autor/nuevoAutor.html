@@ -29,7 +29,7 @@
 							
 						<div class="col-6 mb-3">
 							<label for="pais" class="form-label">Pais</label>
-						    <input type="text" class="form-control" th:field="*{pais}" id="pais" placeholder="Pais">
+						    <select id="pais" name="pais" class="form-select"></select>
 						    <small class="form-text text-danger" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
 						</div>
 						

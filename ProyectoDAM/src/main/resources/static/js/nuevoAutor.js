@@ -11,6 +11,17 @@ $(document).ready(function(){
         };
         reader.readAsDataURL(file);
     });
+
+    var $select = $('#pais');
+    $('<option>').val("---").text("--- Selecci").appendTo($select); 
+    $.getJSON("/json/countries.json", function(result){
+        $.each(result, function(i, field){
+            $.each(field, function(i, field){
+                console.log(field.name_es);
+                $('<option>').val(field.name_es).text(field.name_es).appendTo($select); 
+             });
+         });
+     });
 });
 
 $("#nuevoAutorForm").validate({

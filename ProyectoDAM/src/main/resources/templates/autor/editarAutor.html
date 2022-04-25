@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	    <title>Nuevo autor</title>
+	    <title>Editar autor</title>
 	    
 	    <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
 					
 				<div class="mb-3">
 					<label for="pais" class="form-label">Pais</label>
-				    <input type="text" class="form-control" th:field="*{pais}" id="pais" placeholder="Pais">
+					<select id="pais" name="pais" class="form-select"></select>
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
 				</div>
 				
@@ -53,5 +53,9 @@
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		<script src="/js/editarAutor.js/" th:inline="javascript"></script>
+		<script th:inline="javascript">
+    		var $paisSelected = "[(${autor.pais})]";
+		</script>
 	</body>
 </html>
