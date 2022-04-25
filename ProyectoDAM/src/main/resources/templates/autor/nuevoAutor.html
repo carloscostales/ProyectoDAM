@@ -54,7 +54,7 @@
 					</div>
 					<div>
 						<p>Vista previa: </p>
-						<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
+						<img id="fotoThumbnail" class="rounded my-3" alt="Vista previa foto" th:src="*{fotoPath}"/>
 					</div>
 				</div>
 				<button type="submit" id="botonNuevo" class="btn btn-success">Adelante</button>
@@ -63,36 +63,6 @@
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
-		
-		<script>
-			$(document).ready(function(){
-				$('#fotoThumbnail').hide();
-				
-				$('#foto').change(function() {
-					file = this.files[0];
-					reader = new FileReader();
-					reader.onload = function(e) {
-						$('#fotoThumbnail').show();
-						$('#fotoThumbnail').attr('src', e.target.result);
-						$('#fotoThumbnail').attr('width', 300);
-					};
-					reader.readAsDataURL(file);
-				});
-
-			});
-			
-			$("#nuevoAutorForm").validate({
-		  		rules: {
-		    		field: {
-		      			required: true,
-		      			extension: "jpg|jpeg|png|gif|svg"
-		    		}
-		  		}
-			});
-			jQuery.extend(jQuery.validator.messages, {
-			  accept: 'Escoge una imagen.'
-			});
-			
-		</script>
+		<script src="/js/nuevoAutor.js/"></script>
 	</body>
 </html>
