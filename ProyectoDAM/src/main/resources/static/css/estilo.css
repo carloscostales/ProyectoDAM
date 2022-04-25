@@ -46,3 +46,14 @@ br {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+
+h1 a:hover,h2 a:hover,h3 a:hover,h1 a:hover,h4 a:hover,h5 a:hover,h6 a:hover, p a:hover {
+	opacity: 0.8;
+	transition: 0.2s;
+}
+
+
+h1 a,h2 a,h3 a,h1 a,h4 a,h5 a,h6 a, p a {
+	-webkit-transition: 0.2s;
+}
+	

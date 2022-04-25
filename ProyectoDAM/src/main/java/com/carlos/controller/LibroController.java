@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -31,6 +33,7 @@ import com.carlos.service.IServiceEstado;
 import com.carlos.service.IServiceGenero;
 import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceLibroEstadoUsuario;
+import com.carlos.service.IServiceSeguir;
 
 @Controller
 @RequestMapping("/libro")
@@ -47,6 +50,9 @@ public class LibroController {
 	
 	@Autowired
 	private IServiceEstado estadoService;
+	
+	@Autowired
+	private IServiceSeguir seguirService;
 
 
 	@GetMapping("/libros")
@@ -68,7 +74,11 @@ public class LibroController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("libro", libro);
+		List<Libro> listaLibrosShuffle = libroService.listarLibrosPorGenero(libro.getGenero().getCodigo());
+		Collections.shuffle(listaLibrosShuffle);
+		mav.addObject("librosGenero", listaLibrosShuffle);
 		mav.addObject("librosAutor", libroService.listarLibrosAutor(libro.getAutor().getId()));
+		mav.addObject("numeroSeguidores", seguirService.numeroSeguidores(libro.getAutor().getId()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
