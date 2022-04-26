@@ -21,8 +21,11 @@ public interface LibroDAO extends CrudRepository<Libro, String> {
 	@Query(value="SELECT * FROM libro WHERE genero_codigo = :codigo", nativeQuery = true)
 	List<Libro> listarLibrosPorGenero(@Param("codigo") String codigo);
 	
-	@Query(value="SELECT * FROM libro ORDER BY ano DESC LIMIT 6", nativeQuery = true)
-	List<Libro> listarLibrosPorFechaDescendente();
+	@Query(value="SELECT * FROM libro ORDER BY ano DESC", nativeQuery = true)
+	List<Libro> listarLibrosPorFechaDesc();
+
+	@Query(value="SELECT * FROM libro ORDER BY created_at DESC", nativeQuery = true)
+	List<Libro> listarLibrosCreatedAtDesc();
 	
     @Query(value="DELETE FROM libro WHERE isbn = :isbn", nativeQuery=true)
     @Transactional

@@ -21,7 +21,7 @@ public class RutasGenericas {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("index");
 		
-		mav.addObject("librosRecientes", libroService.listarLibrosFechaDescendente());
+		mav.addObject("librosRecientes", libroService.listarLibrosCreatedAtDesc());
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

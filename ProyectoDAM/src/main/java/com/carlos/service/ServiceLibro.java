@@ -46,7 +46,12 @@ public class ServiceLibro implements IServiceLibro {
 	}
 
 	@Override
-	public List<Libro> listarLibrosFechaDescendente() {
-		return (List<Libro>) libroDAO.listarLibrosPorFechaDescendente();
+	public List<Libro> listarLibrosFechaDesc() {
+		return (List<Libro>) libroDAO.listarLibrosPorFechaDesc();
+	}
+
+	@Override
+	public List<Libro> listarLibrosCreatedAtDesc() {
+		return (List<Libro>) libroDAO.listarLibrosCreatedAtDesc();
 	}
 }

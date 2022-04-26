@@ -16,13 +16,13 @@
 			
 			<!-- LIBROS RECIENTES -->
 			<div class="row">
-				<h2 class="col-lg-11 col-md-10 col-9">Libros recientes</h2>
+				<h2 class="col-lg-11 col-md-10 col-9">Libros añadidos recientemente</h2>
 				<a class="col-lg-1 col-md-2 col-3 float-end" th:href="@{/libro/libros}">Ver más</a>
 			</div>
 			
 			<div class="row">
 				<div class="row row-cols-6 g-4">
-					<div class="col" th:each="libro: ${librosRecientes}">
+					<div class="col" th:each="libro, iterStat: ${librosRecientes}" th:if="${iterStat.index}<6">
 					    <div class="card h-100 bg-transparent border-0">
 					    	<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>
 					       	<div class="card-body">

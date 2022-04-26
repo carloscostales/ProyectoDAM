@@ -18,5 +18,7 @@ public interface IServiceLibro {
 	
 	public List<Libro> listarLibrosPorGenero(String codigo);
 	
-	public List<Libro> listarLibrosFechaDescendente();
+	public List<Libro> listarLibrosFechaDesc();
+
+	public List<Libro> listarLibrosCreatedAtDesc();
 }
