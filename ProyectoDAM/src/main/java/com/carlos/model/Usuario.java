@@ -2,6 +2,7 @@ package com.carlos.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,12 +19,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="usuario")
+@EntityListeners(AuditingEntityListener.class) // necesario para createdAt
 public class Usuario implements UserDetails{
 	
 	public Usuario() { }
@@ -54,11 +59,12 @@ public class Usuario implements UserDetails{
 	@NotBlank(message = "El campo apellidos no puede estar vacío.")
 	private String apellidos;
 
-	@Column
+	@Column(nullable = true)
 	private String ultimoLogin;
 	
-	@Column
-	private String registrado;
+	@CreatedDate
+	@Column(name="created_at", nullable = false, updatable = false)
+	private Date createdAt;
 
 	@ManyToOne
 	private Rol rol = new Rol();
@@ -118,12 +124,12 @@ public class Usuario implements UserDetails{
 		this.ultimoLogin = ultimoLogin;
 	}
 
-	public String getRegistrado() {
-		return registrado;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setRegistrado(String registrado) {
-		this.registrado = registrado;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Rol getRol() {

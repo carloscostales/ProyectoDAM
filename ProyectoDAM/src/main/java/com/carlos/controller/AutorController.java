@@ -162,7 +162,7 @@ public class AutorController {
 		ModelAndView mav = new ModelAndView();
 
 		if(bindingResult.hasErrors()) {
-			mav.setViewName("autor/nuevoAutor");
+			mav.setViewName("autor/editarAutor");
 			
 			if(auth != null ) {
 				Usuario usuario = (Usuario) auth.getPrincipal();

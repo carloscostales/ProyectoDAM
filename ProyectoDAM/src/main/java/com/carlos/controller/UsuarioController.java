@@ -1,7 +1,5 @@
 package com.carlos.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -79,9 +77,6 @@ public class UsuarioController {
 		
 		Rol rol = new Rol();
 		usuario.setRol(rol);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		usuario.setRegistrado(sdf.format(new Date()));
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usuario.setContrasena(passwordEncoder.encode(usuario.getPassword()));
