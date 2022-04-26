@@ -2,6 +2,7 @@ package com.carlos.model;
 
 import java.beans.Transient;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +20,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name="autor")
+@EntityListeners(AuditingEntityListener.class) // necesario para createdAt
 public class Autor {
 	
 	public Autor() {
@@ -57,6 +62,10 @@ public class Autor {
 	
 	@Column(nullable=true)
 	private String foto;
+
+	@CreatedDate
+	@Column(name="created_at", nullable = false, updatable = false)
+	private Date createdAt;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="autor", cascade=CascadeType.ALL)
 	private List<Libro> libros = new ArrayList<Libro>();
@@ -129,7 +138,15 @@ public class Autor {
 		this.seguir = seguir;
 	}
 	
-	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
 	@Transient
 	public String getFotoPath() {
 		if (foto == null || id == null) return null;

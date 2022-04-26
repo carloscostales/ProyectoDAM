@@ -1,12 +1,14 @@
 package com.carlos.model;
 
 import java.beans.Transient;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -19,9 +21,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name="libro")
+@EntityListeners(AuditingEntityListener.class) // necesario para createdAt
 public class Libro {
 	
 	public Libro() {
@@ -69,6 +74,10 @@ public class Libro {
 	
 	@Column
 	private String portada;
+	
+	@CreatedDate
+	@Column(name="created_at", nullable = false, updatable = false)
+	private Date createdAt;
 	
 	@ManyToOne
 	private Autor autor = new Autor();
@@ -150,6 +159,14 @@ public class Libro {
 
 	public void setPortada(String portada) {
 		this.portada = portada;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 
