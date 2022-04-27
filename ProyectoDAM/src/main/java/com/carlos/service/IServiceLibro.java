@@ -21,4 +21,6 @@ public interface IServiceLibro {
 	public List<Libro> listarLibrosFechaDesc();
 
 	public List<Libro> listarLibrosCreatedAtDesc();
+
+	public Libro libroDestacadoPorAutor(Integer autorId);
 }

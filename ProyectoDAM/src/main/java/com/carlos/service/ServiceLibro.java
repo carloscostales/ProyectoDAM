@@ -54,4 +54,9 @@ public class ServiceLibro implements IServiceLibro {
 	public List<Libro> listarLibrosCreatedAtDesc() {
 		return (List<Libro>) libroDAO.listarLibrosCreatedAtDesc();
 	}
+
+	@Override
+	public Libro libroDestacadoPorAutor(Integer autorId) {
+		return libroDAO.libroDestacadoPorAutor(autorId);
+	}
 }

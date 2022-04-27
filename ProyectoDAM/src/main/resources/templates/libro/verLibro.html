@@ -51,16 +51,7 @@
 					</div>
 				</div>
 			</div>
-			
-			<h3>FICHA</h3>
-			<ul class="list-group list-group-flush mb-5">
-				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Género: </b><span th:text="${libro.genero.nombre}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Nº de páginas: </b><span th:text="${libro.paginas}"></span></li>
-			</ul>
-			
+
 			<h3>También te podría interesar...</h3>
 			<div class="row">
 				<div class="row row-cols-6 g-4">
@@ -76,16 +67,43 @@
 				</div>
 			</div>
 			
-			<h3>ESCRITO POR...</h3>
+			<h3>FICHA</h3>
+			<ul class="list-group list-group-flush mb-5">
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Título: </b><span th:text="${libro.titulo}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Autor: </b><span th:text="${libro.autor.nombre}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Editorial: </b><span th:text="${libro.editorial}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Género: </b><span th:text="${libro.genero.nombre}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Nº de páginas: </b><span th:text="${libro.paginas}"></span></li>
+				<li class="list-group-item list-group-item-action bg-transparent"><b>Año: </b><span th:text="${libro.ano}"></span></li>
+			</ul>
+
+			<h3 class="mb-3">ESCRITO POR...</h3>
 			<div class="row mb-5">
-				<div class="col-2">
-					<a th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}"><img th:src="@{${libro.autor.fotoPath}}" class="card-img-top rounded" th:alt="${libro.autor.nombre}"></a>
+				<div class="col-8">
+					<div class="row">
+						<div class="col-2">
+							<a th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}"><img th:src="@{${libro.autor.fotoPath}}" class="card-img-top rounded" th:alt="${libro.autor.nombre}"></a>
+						</div>
+						<div class="col-10">
+							<h4><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}"> autor nombre </a></h4>
+							<p class="text-muted">Nº de seguidores: <span th:text="${numeroSeguidores}" th:remove="tag"</p>
+							<p th:text="${libro.autor.bio}" class="text-truncate" style="white-space: pre-line;"> bio </p>
+						</div>
+					</div>
 				</div>
-				<div class="col-10">
-					<h4><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}"> autor nombre </a></h4>
-					<p class="text-muted">Nº de seguidores: <span th:text="${numeroSeguidores}" th:remove="tag"</p>
-					<p th:text="${libro.autor.bio}" class="text-truncate" style="white-space: pre-line;"> bio </p>
-					
+				<div class="col-4">
+					<h4 class="mb-3">Libro destacado</h4>
+					<div class="row">
+						<div class="col-5">
+							<img th:src="${libroDestacado.portadaPath}" class="rounded" th:alt="${libroDestacado.titulo}" style="max-width:100%;" >
+						</div>
+						<div class="col-7">
+							<h5 th:text="${libroDestacado.titulo}"></h5>
+							<p th:text="${libroDestacado.autor.nombre}" class="text-muted"></p>
+							<p th:text="${libroDestacado.genero.nombre}" class="text-muted"></p>
+						</div>
+					</div>
 				</div>
 			</div>
 			

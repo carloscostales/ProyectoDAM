@@ -31,4 +31,7 @@ public interface LibroDAO extends CrudRepository<Libro, String> {
     @Transactional
     @Modifying
     void borrarPorIsbn(@Param("isbn") String isbn);
+
+	@Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE autor_id = :autor GROUP BY l.isbn ORDER BY count(l.isbn) desc LIMIT 1", nativeQuery = true)
+    Libro libroDestacadoPorAutor(@Param("autor") Integer autor);
 }

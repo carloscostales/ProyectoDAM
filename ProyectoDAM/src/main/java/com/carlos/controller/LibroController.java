@@ -79,6 +79,7 @@ public class LibroController {
 		mav.addObject("librosGenero", listaLibrosShuffle);
 		mav.addObject("librosAutor", libroService.listarLibrosAutor(libro.getAutor().getId()));
 		mav.addObject("numeroSeguidores", seguirService.numeroSeguidores(libro.getAutor().getId()));
+		mav.addObject("libroDestacado", libroService.libroDestacadoPorAutor(libro.getAutor().getId()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
