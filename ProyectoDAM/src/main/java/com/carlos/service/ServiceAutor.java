@@ -34,4 +34,14 @@ public class ServiceAutor implements IServiceAutor {
 	public List<Autor> listarAutores() {
 		return (List<Autor>) autorDAO.findAll();
 	}
+
+	@Override
+	public List<Autor> listarAutoresCreatedAtDesc() {
+		return (List<Autor>) autorDAO.listarAutoresCreatedAtDesc();
+	}
+
+	@Override
+	public List<Autor> listarAutoresMasSeguidos() {
+		return (List<Autor>) autorDAO.listarAutoresMasSeguidos();
+	}
 }

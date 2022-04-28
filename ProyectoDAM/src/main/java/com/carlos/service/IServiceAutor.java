@@ -13,5 +13,8 @@ public interface IServiceAutor {
 	public void delete(Autor autor);
 	
 	public List<Autor> listarAutores();
-	
+
+	public List<Autor> listarAutoresCreatedAtDesc();
+
+	public List<Autor> listarAutoresMasSeguidos();
 }

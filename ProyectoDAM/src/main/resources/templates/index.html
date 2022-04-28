@@ -11,29 +11,61 @@
 	
 	<body>
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
-			<div class="container">
-			<h1 class="text-center mt-3"> ESTA ES LA PÁGINA PRINCIPAL </h1>
-			
+		<section class="container">
+			<h1 class="text-center mt-3"> ¡Bienvenido! </h1>
+
+			<!-- AUTORES MAS SEGUIDOS -->
+			<div class="row mb-5">
+				<h2 class="col-lg-11 col-md-10 col-9">Autores más seguidos</h2>
+				<a class="col-lg-1 col-md-2 col-3 float-end" th:href="@{/autor/autores}">Ver más</a>
+			</div>
+
+			<div class="row row-cols-6 g-4 mb-5">
+				<div class="col" th:each="autor, iterStat: ${autoresSeguidos}" th:if="${iterStat.index}<6">
+				    <div class="card h-100 bg-transparent border-0">
+				    	<a th:href="@{/autor/ver/{autor}(autor=${autor.id})}"><img th:src="@{${autor.fotoPath}}" class="card-img-top rounded" th:alt="${autor.nombre}"></a>
+				       	<div class="card-body">
+				    		 <h6 class="card-title"><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${autor.id})}" th:text="${autor.nombre}"> nombre </a></h6>
+				       	</div>
+				    </div>
+				</div>
+			</div>
+
 			<!-- LIBROS RECIENTES -->
-			<div class="row">
+			<div class="row mb-5">
 				<h2 class="col-lg-11 col-md-10 col-9">Libros añadidos recientemente</h2>
 				<a class="col-lg-1 col-md-2 col-3 float-end" th:href="@{/libro/libros}">Ver más</a>
 			</div>
 			
-			<div class="row">
-				<div class="row row-cols-6 g-4">
-					<div class="col" th:each="libro, iterStat: ${librosRecientes}" th:if="${iterStat.index}<6">
-					    <div class="card h-100 bg-transparent border-0">
-					    	<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>
-					       	<div class="card-body">
-					    		 <h5 class="card-title"><a class="text-decoration-none text-truncate-2" th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}" th:text="${libro.titulo}"> titulo </a></h6>
-					    		 <p class="text-muted"><a class="text-decoration-none text-muted" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}">autor</a></p>
-					       	</div>
-					    </div>
+			<div class="row row-cols-6 g-4 mb-5">
+				<div class="col" th:each="libro, iterStat: ${librosRecientes}" th:if="${iterStat.index}<6">
+					<div class="card h-100 bg-transparent border-0">
+						<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>
+						<div class="card-body">
+								<h5 class="card-title"><a class="text-decoration-none text-truncate-2" th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}" th:text="${libro.titulo}"> titulo </a></h6>
+								<p class="text-muted"><a class="text-decoration-none text-muted" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}">autor</a></p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
+			<!-- AUTORES RECIENTES -->
+			<div class="row mb-5">
+				<h2 class="col-lg-11 col-md-10 col-9">Autores añadidos recientemente</h2>
+				<a class="col-lg-1 col-md-2 col-3 float-end" th:href="@{/autor/autores}">Ver más</a>
+			</div>
+
+			<div class="row row-cols-6 g-4 mb-5">
+				<div class="col" th:each="autor, iterStat: ${autoresRecientes}" th:if="${iterStat.index}<6">
+				    <div class="card h-100 bg-transparent border-0">
+				    	<a th:href="@{/autor/ver/{autor}(autor=${autor.id})}"><img th:src="@{${autor.fotoPath}}" class="card-img-top rounded" th:alt="${autor.nombre}"></a>
+				       	<div class="card-body">
+				    		 <h6 class="card-title"><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${autor.id})}" th:text="${autor.nombre}"> nombre </a></h6>
+				       	</div>
+				    </div>
+				</div>
+			</div>
+		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
 	</body>
