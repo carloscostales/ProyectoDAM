@@ -22,4 +22,6 @@ public interface IServiceAutor {
 	public List<Autor> listarAutoresCreatedAtDesc();
 
 	public List<Autor> listarAutoresMasSeguidos();
+
+	public Page<Autor> buscarPorNombre(Pageable pageable, String nombre);
 }

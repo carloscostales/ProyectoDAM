@@ -56,4 +56,24 @@ h1 a:hover,h2 a:hover,h3 a:hover,h1 a:hover,h4 a:hover,h5 a:hover,h6 a:hover, p 
 h1 a,h2 a,h3 a,h1 a,h4 a,h5 a,h6 a, p a {
 	-webkit-transition: 0.2s;
 }
-	
+
+/* PAGINACION */
+.page-item.active .page-link {
+	color: white !important;
+	background-color: #7D5A50	 !important;
+	border-color: #282828 !important;
+}
+
+
+.page-link {
+	color: white !important;
+	background-color: #282828	 !important;
+	border: 1px solid #282828 !important;
+ }
+
+.page-link:hover {
+	color: white !important;
+	background-color: #7D5A50 !important;
+	border-color: #282828 !important;
+}
+/* PAGINACION */

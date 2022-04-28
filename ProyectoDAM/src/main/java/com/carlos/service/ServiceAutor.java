@@ -51,4 +51,9 @@ public class ServiceAutor implements IServiceAutor {
 	public List<Autor> listarAutoresMasSeguidos() {
 		return (List<Autor>) autorDAO.listarAutoresMasSeguidos();
 	}
+
+	@Override
+	public Page<Autor> buscarPorNombre(Pageable pageable, String nombre) {
+		return autorDAO.findByNombreStartsWith(pageable, nombre);
+	}
 }
