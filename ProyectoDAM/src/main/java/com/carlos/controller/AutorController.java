@@ -7,10 +7,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -46,11 +51,33 @@ public class AutorController {
 	
 	
 	@GetMapping("/autores")
-	public ModelAndView autores(Authentication auth) {
+	public ModelAndView autores(@RequestParam Map<String, Object> params, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
+
+		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+		// Pagina que vamos a buscar y cuantos registros cargamos por página.
+		PageRequest pageRequest = PageRequest.of(page, 6);
+
+		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
+		Page<Autor> pageAutor = (Page<Autor>) autorService.listarAutores(pageRequest);
+
+		// Total de páginas.
+		int totalPage = pageAutor.getTotalPages();
+
+		// Crea un stream del 1 al total de páginas. Lo convertimos en una lista(.boxed().collect(Collectors.toList())
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+
+		mav.addObject("listaAutores", pageAutor.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
 		
-		List<Autor> autores = autorService.listarAutores();
-		mav.addObject("autores", autores);
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

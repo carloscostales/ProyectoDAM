@@ -13,7 +13,7 @@
 	<body>
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
-	    <div class="container text-center">
+	    <section class="container text-center">
 	    	
 	    	<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 	    		<a class="btn btn-primary float-end" th:href="@{/autor/nuevoAutor}">Nuevo autor</a>
@@ -21,7 +21,7 @@
 	    	<h1 class="mt-3 mb-5">AUTORES</h1>
 			
 			<div class="row row-cols-6 g-4">
-				<div class="col" th:each="autor: ${autores}">
+				<div class="col" th:each="autor: ${listaAutores}">
 				    <div class="card h-100 bg-transparent border-0">
 				    	<a th:href="@{/autor/ver/{autor}(autor=${autor.id})}"><img th:src="@{${autor.fotoPath}}" class="card-img-top rounded" th:alt="${autor.nombre}"></a>
 				       	<div class="card-body">
@@ -30,10 +30,28 @@
 				    </div>
 				</div>
 			</div>
-			
-			<a th:href="@{/autor/autores}">Volver al inicio</a>
-			
-	    </div>
+
+			<!-- PAGINACIÓN -->
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<nav aria-label="Pagination">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
+								<a class="page-link" th:href="@{| /autor/autores/?page=${prev} |}">Anterior</a>
+							</li>
+							<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
+								<a class="page-link" th:href="@{| /autor/autores/?page=${page} |}" th:text="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+								<a class="page-link" th:href="@{| /autor/autores/?page=${next} |}">Siguiente</a>
+							</li>
+							</ul>
+					</nav>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+	    </section>
 	    
 	    <footer th:replace="../fragments/footer.html :: footer"></footer>
 	</body>
