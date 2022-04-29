@@ -26,12 +26,15 @@ public interface LibroDAO extends CrudRepository<Libro, String> {
 
 	@Query(value="SELECT * FROM libro ORDER BY created_at DESC", nativeQuery = true)
 	List<Libro> listarLibrosCreatedAtDesc();
+
+	@Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE autor_id = :autor GROUP BY l.isbn ORDER BY count(l.isbn) desc LIMIT 1", nativeQuery = true)
+    Libro libroDestacadoPorAutor(@Param("autor") Integer autor);
 	
+    @Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE estado_id = :estado AND usuario_nombre_usuario = :nombreUsuario", nativeQuery = true)
+	List<Libro> listarLibrosLeidosUsuario(@Param("nombreUsuario") String nombreUsuario, @Param("estado") Integer estado);
+
     @Query(value="DELETE FROM libro WHERE isbn = :isbn", nativeQuery=true)
     @Transactional
     @Modifying
     void borrarPorIsbn(@Param("isbn") String isbn);
-
-	@Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE autor_id = :autor GROUP BY l.isbn ORDER BY count(l.isbn) desc LIMIT 1", nativeQuery = true)
-    Libro libroDestacadoPorAutor(@Param("autor") Integer autor);
 }

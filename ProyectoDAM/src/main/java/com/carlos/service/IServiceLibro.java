@@ -23,4 +23,6 @@ public interface IServiceLibro {
 	public List<Libro> listarLibrosCreatedAtDesc();
 
 	public Libro libroDestacadoPorAutor(Integer autorId);
+
+	public List<Libro> listarLibrosLeidosUsuario(String nombreUsuario, Integer estado);
 }

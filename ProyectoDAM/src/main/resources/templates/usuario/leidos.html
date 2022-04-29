@@ -1,0 +1,52 @@
+<html>
+	<head>
+	    <title>Libros leidos</title>
+	    
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
+		
+		<div class="container">
+			<h1 class="text-center mt-3">Libros leidos por <span th:text="${usuario.nombreUsuario}" class="text-muted"></span> </h1>
+			
+			<div class="row">
+				<div class="col">	
+					<h2>OBRAS</h2>
+					<!-- <p class="mb-5"> Número de libros: <span th:text="${numeroLibros}" th:remove="tag"></span></p> -->
+				</div>
+			</div>
+			
+			<div th:switch="${#lists.isEmpty(librosLeidos)}">
+				<div th:case="false">
+					<div th:each="libro: ${librosLeidos}" id="libro" class="row mb-5 py-2">
+						<div class="col-lg-2 col-md-3 col-xs-3">
+							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
+						</div>
+						<div class="col-xl-10 col-md-9 col-xs-9">
+							<h3 th:text="${libro.titulo}"></h3>
+							<p th:text="${libro.autor.nombre}"></p>
+							<p th:text="${libro.sinopsis}" id="sinopsis" class="text-truncate" style="white-space: pre-line;"></p>
+							
+							<a class="btn btn-primary" th:href="@{/libro/ver/{isbn}(isbn=${libro.isbn})}">Ver libro</a>
+						</div>
+						
+						</br>
+					</div>
+				</div>
+				
+				<div th:case="true">
+					<h4>Este usuario todavía no tiene libros leídos.</h4>
+				</div>
+			</div>
+		</div>
+		
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
+	    <script src="/js/verGenero.js"></script>
+	</body>
+</html>

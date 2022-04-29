@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
+import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceUsuario;
 
 @Controller
@@ -26,6 +27,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private IServiceUsuario usuarioService;
+
+	@Autowired
+	private IServiceLibro libroService;
 	
 
 	@GetMapping("/usuarios")
@@ -50,6 +54,17 @@ public class UsuarioController {
 		mav.setViewName("usuario/verUsuario");
 		mav.addObject("usuario", usuario);
 		
+		return mav;
+	}
+
+	@GetMapping("/ver/{usuario}/leidos")
+	public ModelAndView usuarioLeidos(@PathVariable Usuario usuario) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("usuario", usuario);
+		mav.addObject("librosLeidos", libroService.listarLibrosLeidosUsuario(usuario.getNombreUsuario(), 1));
+
+		mav.setViewName("usuario/leidos");
 		return mav;
 	}
 
