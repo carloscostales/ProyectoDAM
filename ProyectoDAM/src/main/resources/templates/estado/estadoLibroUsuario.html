@@ -1,6 +1,6 @@
 <html>
 	<head>
-	    <title>Libros leidos</title>
+	    <title>Libros por estado</title>
 	    
 	    <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<div class="container">
-			<h1 class="text-center mt-3">Libros leidos por <span th:text="${usuario.nombreUsuario}" class="text-muted"></span> </h1>
+			<h1 class="text-center mt-3">Libros en estado '<span th:text="${estado.nombre}" th:remove="tag"></span>' por <span th:text="${usuario.nombreUsuario}" class="text-muted"></span> </h1>
 			
 			<div class="row">
 				<div class="col">	
@@ -22,9 +22,9 @@
 				</div>
 			</div>
 			
-			<div th:switch="${#lists.isEmpty(librosLeidos)}">
+			<div th:switch="${#lists.isEmpty(librosEstado)}">
 				<div th:case="false">
-					<div th:each="libro: ${librosLeidos}" id="libro" class="row mb-5 py-2">
+					<div th:each="libro: ${librosEstado}" id="libro" class="row mb-5 py-2">
 						<div class="col-lg-2 col-md-3 col-xs-3">
 							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
 						</div>

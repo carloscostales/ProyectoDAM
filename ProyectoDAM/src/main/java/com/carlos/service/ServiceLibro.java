@@ -61,7 +61,7 @@ public class ServiceLibro implements IServiceLibro {
 	}
 
 	@Override
-	public List<Libro> listarLibrosLeidosUsuario(String nombreUsuario, Integer estado) {
-		return (List<Libro>) libroDAO.listarLibrosLeidosUsuario(nombreUsuario, estado);
+	public List<Libro> listarLibrosPorEstadoUsuario(String nombreUsuario, Integer estado) {
+		return (List<Libro>) libroDAO.listarLibrosPorEstadoUsuario(nombreUsuario, estado);
 	}
 }

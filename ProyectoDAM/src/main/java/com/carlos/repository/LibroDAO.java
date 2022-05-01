@@ -31,7 +31,7 @@ public interface LibroDAO extends CrudRepository<Libro, String> {
     Libro libroDestacadoPorAutor(@Param("autor") Integer autor);
 	
     @Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE estado_id = :estado AND usuario_nombre_usuario = :nombreUsuario", nativeQuery = true)
-	List<Libro> listarLibrosLeidosUsuario(@Param("nombreUsuario") String nombreUsuario, @Param("estado") Integer estado);
+	List<Libro> listarLibrosPorEstadoUsuario(@Param("nombreUsuario") String nombreUsuario, @Param("estado") Integer estado);
 
     @Query(value="DELETE FROM libro WHERE isbn = :isbn", nativeQuery=true)
     @Transactional

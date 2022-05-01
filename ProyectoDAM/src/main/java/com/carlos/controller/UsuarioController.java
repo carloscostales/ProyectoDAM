@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.model.Estado;
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
+import com.carlos.service.IServiceEstado;
 import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceUsuario;
 
@@ -30,7 +32,10 @@ public class UsuarioController {
 
 	@Autowired
 	private IServiceLibro libroService;
-	
+
+	@Autowired
+	private IServiceEstado estadoService;
+
 
 	@GetMapping("/usuarios")
 	public ModelAndView usuarios(Authentication auth) {
@@ -54,17 +59,17 @@ public class UsuarioController {
 		mav.setViewName("usuario/verUsuario");
 		mav.addObject("usuario", usuario);
 		
+		mav.addObject("estados", estadoService.listarEstados());
 		return mav;
 	}
 
-	@GetMapping("/ver/{usuario}/leidos")
-	public ModelAndView usuarioLeidos(@PathVariable Usuario usuario) {
+	@GetMapping("/ver/{usuario}/{estado}")
+	public ModelAndView usuarioLeyendo(@PathVariable Usuario usuario, @PathVariable Estado estado) {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("usuario", usuario);
-		mav.addObject("librosLeidos", libroService.listarLibrosLeidosUsuario(usuario.getNombreUsuario(), 1));
-
-		mav.setViewName("usuario/leidos");
+		mav.addObject("librosEstado", libroService.listarLibrosPorEstadoUsuario(usuario.getNombreUsuario(), estado.getId()));
+		mav.setViewName("estado/estadoLibroUsuario");
 		return mav;
 	}
 

@@ -21,6 +21,10 @@
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
 			</ul>
+
+			<ul th:each="estado: ${estados}">
+				<a class="btn btn-primary" th:text="${estado.nombre}" th:href="@{/usuario/ver/{usuario}/{estado}(usuario=${usuario.nombreUsuario}, estado=${estado.id})}"></a>
+			</ul>
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
