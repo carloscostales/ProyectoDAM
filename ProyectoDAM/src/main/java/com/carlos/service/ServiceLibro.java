@@ -3,6 +3,8 @@ package com.carlos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.carlos.model.Libro;
@@ -43,6 +45,11 @@ public class ServiceLibro implements IServiceLibro {
 	@Override
 	public List<Libro> listarLibrosPorGenero(String codigo) {
 		return (List<Libro>) libroDAO.listarLibrosPorGenero(codigo);
+	}
+
+	@Override
+	public Page<Libro> listarLibrosPorGenero(String codigo, Pageable pageable) {
+		return (Page<Libro>) libroDAO.listarLibrosPorGenero(codigo, pageable);
 	}
 
 	@Override

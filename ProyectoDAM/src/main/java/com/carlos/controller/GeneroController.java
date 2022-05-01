@@ -1,8 +1,13 @@
 package com.carlos.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Genero;
+import com.carlos.model.Libro;
 import com.carlos.model.Usuario;
 import com.carlos.service.IServiceGenero;
 import com.carlos.service.IServiceLibro;
@@ -45,9 +52,24 @@ public class GeneroController {
 	}
 
 	@GetMapping("/ver/{genero}")
-	public ModelAndView verGenero(@PathVariable Genero genero, Authentication auth) {
+	public ModelAndView verGenero(@PathVariable Genero genero, @RequestParam Map<String, Object> params, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+		PageRequest pageRequest = PageRequest.of(page, 6);
+		Page<Libro> pageGenero =  (Page<Libro>) libroService.listarLibrosPorGenero(genero.getCodigo(), pageRequest);
+		int totalPage = pageGenero.getTotalPages();
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+
+		mav.addObject("listaLibrosGenero", pageGenero.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
+
 		mav.addObject("genero", genero);
 		mav.addObject("librosGenero", libroService.listarLibrosPorGenero(genero.getCodigo()));
 		mav.addObject("numeroLibros", libroService.listarLibrosPorGenero(genero.getCodigo()).size());

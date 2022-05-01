@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.carlos.model.Libro;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface IServiceLibro {
 	
 	public void add(Libro libro);
@@ -15,8 +18,10 @@ public interface IServiceLibro {
 	public List<Libro> listarLibros();
 	
 	public List<Libro> listarLibrosAutor(Integer id);
-	
+
 	public List<Libro> listarLibrosPorGenero(String codigo);
+	
+	public Page<Libro> listarLibrosPorGenero(String codigo, Pageable pageable);
 	
 	public List<Libro> listarLibrosFechaDesc();
 

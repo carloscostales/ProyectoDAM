@@ -26,9 +26,9 @@
 				</div>
 			</div>
 			
-			<div th:switch="${#lists.isEmpty(librosGenero)}">
+			<div th:switch="${#lists.isEmpty(listaLibrosGenero)}">
 				<div th:case="false">
-					<div th:each="libro: ${librosGenero}" id="libro" class="row mb-5 py-2">
+					<div th:each="libro: ${listaLibrosGenero}" id="libro" class="row mb-5 py-2">
 						<div class="col-lg-2 col-md-3 col-xs-3">
 							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
 						</div>
@@ -48,8 +48,28 @@
 					<h4>Este género todavía no tiene libros.</h4>
 				</div>
 			</div>
+			<!-- PAGINACIÓN -->
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<nav aria-label="Pagination bg-transparent">
+						<ul class="pagination justify-content-center bg-transparent">
+							<li class="page-item bg-transparent" th:classappend="${prev == 0 ? 'disabled': ''}">
+								<a class="page-link" th:href="@{| /genero/ver/${genero.codigo}?page=${prev} |}">Anterior</a>
+							</li>
+							<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
+								<a class="page-link" th:href="@{| /genero/ver/${genero.codigo}?page=${page} |}" th:text="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+								<a class="page-link" th:href="@{| /genero/ver/${genero.codigo}?page=${next} |}">Siguiente</a>
+							</li>
+							</ul>
+					</nav>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
 		</div>
-		
+
 		<!-- EDITAR MODAL -->
 		<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   			<div class="modal-dialog">
