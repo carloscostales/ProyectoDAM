@@ -1,6 +1,6 @@
 <html>
 	<head>
-	    <title>Ver género</title>
+	    <title>Busqueda en género</title>
 	    
 	    <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,59 +78,7 @@
 				<div class="col-md-2"></div>
 			</div>
 		</section>
-
-		<!-- EDITAR MODAL -->
-		<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  			<div class="modal-dialog">
-    			<div class="modal-content bg-dark">
-      				<div class="modal-header">
-        				<h5 class="modal-title" id="exampleModalLabel">Editar - <span th:text="${genero.nombre}" th:remove="tag"></span></h5>
-        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      				</div>
-      				<div class="modal-body text-dark">
-        				<form th:action="@{/genero/updateGenero}" th:object="${genero}" id="editarGeneroForm" method="post">
-							<div class="mb-3">
-								<label for="codigo" class="form-label">Código</label>
-								<input type="text" class="form-control" th:field="*{codigo}" id="codigo" placeholder="Código" maxlength="3" />
-					    		<small class="form-text text-danger" id="errorCodigo"></small>
-							</div>
-								
-							<div class="mb-3">
-								<label for="nombre" class="form-label">Nombre del género</label>
-							    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre">
-					    		<small class="form-text text-danger" id="errorNombre"></small>
-							</div>
-							
-							<button type="submit" id="botonEditar" class="btn btn-success">Adelante</button>
-						</form>
-      				</div>
-      				<div class="modal-footer">
-        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      				</div>
-    			</div>
-  			</div>
-		</div>
-		
-		
-		<!-- BORRAR MODAL -->
-		<div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  			<div class="modal-dialog">
-    			<div class="modal-content text-dark">
-      				<div class="modal-header">
-        				<h5 class="modal-title text-dark" id="exampleModalLabel">¿Seguro que quieres borrar a este género?</h5>
-        				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      				</div>
-      				<div class="modal-body text-dark">
-        				Si el género tiene algún libro asociado, no se borrará...
-      				</div>
-      				<div class="modal-footer">
-        				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        				<a type="button" th:href="@{/genero/borrarGenero/{genero}(genero=${genero.codigo})}" class="btn btn-danger">Borrar</a>
-      				</div>
-    			</div>
-  			</div>
-		</div>
-
+        
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
 	    <script src="/js/verGenero.js"></script>
 	</body>

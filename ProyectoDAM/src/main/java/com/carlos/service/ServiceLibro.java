@@ -53,6 +53,11 @@ public class ServiceLibro implements IServiceLibro {
 	}
 
 	@Override
+	public Page<Libro> listarLibrosPorGeneroBusqueda(String codigo, String titulo, Pageable pageable) {
+		return (Page<Libro>) libroDAO.listarLibrosPorGeneroBusqueda(codigo, titulo, pageable);
+	}
+
+	@Override
 	public List<Libro> listarLibrosFechaDesc() {
 		return (List<Libro>) libroDAO.listarLibrosPorFechaDesc();
 	}

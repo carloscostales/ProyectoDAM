@@ -54,6 +54,7 @@ public class GeneroController {
 	@GetMapping("/ver/{genero}")
 	public ModelAndView verGenero(@PathVariable Genero genero, @RequestParam Map<String, Object> params, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("busqueda", new Genero());
 		
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
 		PageRequest pageRequest = PageRequest.of(page, 6);
@@ -70,7 +71,6 @@ public class GeneroController {
 		mav.addObject("prev", page);
 		mav.addObject("last", totalPage);
 
-		mav.addObject("genero", genero);
 		mav.addObject("librosGenero", libroService.listarLibrosPorGenero(genero.getCodigo()));
 		mav.addObject("numeroLibros", libroService.listarLibrosPorGenero(genero.getCodigo()).size());
 		
@@ -78,8 +78,40 @@ public class GeneroController {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
-		
+
 		mav.setViewName("genero/verGenero");
+		return mav;
+	}
+
+	@GetMapping("/ver/{genero}/buscar")
+	public ModelAndView verGeneroBuscar(@PathVariable Genero genero, @RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Genero busqueda, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("busqueda", busqueda);
+
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+		PageRequest pageRequest = PageRequest.of(page, 6);
+		Page<Libro> pageGenero =  (Page<Libro>) libroService.listarLibrosPorGeneroBusqueda(genero.getCodigo(), busqueda.getNombre(), pageRequest);
+		int totalPage = pageGenero.getTotalPages();
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+
+		mav.addObject("listaLibrosGenero", pageGenero.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
+
+		mav.addObject("numeroLibros", libroService.listarLibrosPorGeneroBusqueda(genero.getCodigo(), busqueda.getNombre(), pageRequest).toList().size());
+		
+		if(auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
+		mav.addObject("busqueda", new Genero());
+		mav.setViewName("genero/busquedaGenero");
 		return mav;
 	}
 

@@ -22,6 +22,8 @@ public interface IServiceLibro {
 	public List<Libro> listarLibrosPorGenero(String codigo);
 	
 	public Page<Libro> listarLibrosPorGenero(String codigo, Pageable pageable);
+		
+	public Page<Libro> listarLibrosPorGeneroBusqueda(String codigo, String titulo, Pageable pageable);
 	
 	public List<Libro> listarLibrosFechaDesc();
 

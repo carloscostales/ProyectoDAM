@@ -20,5 +20,5 @@ public interface AutorDAO extends JpaRepository<Autor, Integer> {
     List<Autor> listarAutoresMasSeguidos();
 
 	// Busca artistas que empiezen por el string dado. Hecho para paginar la búsqueda
-	Page<Autor> findByNombreStartsWith(Pageable pageable, String nombre);
+	Page<Autor> findByNombreContains(Pageable pageable, String nombre);
 }

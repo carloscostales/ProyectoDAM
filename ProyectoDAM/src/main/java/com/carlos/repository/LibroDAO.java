@@ -25,6 +25,9 @@ public interface LibroDAO extends JpaRepository<Libro, String> {
 	
 	@Query(value="SELECT * FROM libro WHERE genero_codigo = :codigo", nativeQuery = true)
 	Page<Libro> listarLibrosPorGenero(@Param("codigo") String codigo, Pageable pageable);
+
+	@Query(value="SELECT * FROM libro WHERE genero_codigo = :codigo AND titulo like %:titulo%", nativeQuery = true)
+	Page<Libro> listarLibrosPorGeneroBusqueda(@Param("codigo") String codigo, @Param("titulo") String titulo, Pageable pageable);
 	
 	@Query(value="SELECT * FROM libro ORDER BY ano DESC", nativeQuery = true)
 	List<Libro> listarLibrosPorFechaDesc();

@@ -54,6 +54,6 @@ public class ServiceAutor implements IServiceAutor {
 
 	@Override
 	public Page<Autor> buscarPorNombre(Pageable pageable, String nombre) {
-		return autorDAO.findByNombreStartsWith(pageable, nombre);
+		return autorDAO.findByNombreContains(pageable, nombre);
 	}
 }
