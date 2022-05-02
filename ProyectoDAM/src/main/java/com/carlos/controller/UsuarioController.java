@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Estado;
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
+import com.carlos.service.IServiceAutor;
 import com.carlos.service.IServiceEstado;
 import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceUsuario;
@@ -35,6 +36,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IServiceEstado estadoService;
+
+	@Autowired
+	private IServiceAutor autorService;
 
 
 	@GetMapping("/usuarios")
@@ -58,6 +62,8 @@ public class UsuarioController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuario/verUsuario");
 		mav.addObject("usuario", usuario);
+
+		mav.addObject("autorPreferido", autorService.autorPreferidoPorUsuario(usuario.getNombreUsuario()));
 		
 		mav.addObject("estados", estadoService.listarEstados());
 		return mav;

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,5 +21,8 @@ public interface AutorDAO extends JpaRepository<Autor, Integer> {
     List<Autor> listarAutoresMasSeguidos();
 
 	// Busca artistas que empiezen por el string dado. Hecho para paginar la búsqueda
-	Page<Autor> findByNombreContains(Pageable pageable, String nombre);
+	Page<Autor> findByNombreContaining(Pageable pageable, String nombre);
+
+	@Query(value="SELECT a.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn JOIN autor a ON l.autor_id=a.id WHERE leu.usuario_nombre_usuario = :nombreUsuario GROUP BY autor_id ORDER BY count(autor_id) DESC LIMIT 1", nativeQuery = true)
+    Autor autorPreferidoPorUsuario(@Param("nombreUsuario") String nombreUsuario);
 }

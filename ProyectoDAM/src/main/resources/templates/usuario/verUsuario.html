@@ -12,19 +12,36 @@
 	<body>
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
-		<section class="container">
+		<section class="container mt-3">
 		
-			<h1 class="text-center mt-3" th:text="${usuario.nombreUsuario}"> </h1>
+			<h2 class="mb-5">Perfil de <span th:text="${usuario.nombreUsuario}" th:remove="tag"></span> </h2>
 		
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
-				<li class="list-group-item list-group-item-action bg-transparent"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
-			</ul>
+			<h3>Ficha del usuario</h3>
+			<hr class="my-3">
+			<div class="row">
+				<ul class="list-group list-group-flush mb-4 col">
+					<li class="list-group-item list-group-item-action bg-transparent"><b>Nombre completo: </b><span th:text="${usuario.nombreCompleto}"></span></li>
+					<li class="list-group-item list-group-item-action bg-transparent"><b>Email: </b><span th:text="${usuario.email}"></span></li>
+					<li class="list-group-item list-group-item-action bg-transparent"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
+					<li class="list-group-item list-group-item-action bg-transparent"><b>Creado: </b><span th:text="${usuario.createdAt}"></span></li>
+					<li class="list-group-item list-group-item-action bg-transparent"><b>Ultimo login: </b><span th:text="${usuario.ultimoLogin}"></span></li>
+				</ul>
+				<div class="col-lg-2 col-12">
+					<h4>Autor preferido</h4>
+					<div class="card h-100 bg-transparent border-0">
+						<a th:href="@{/autor/ver/{autor}(autor=${autorPreferido.id})}"><img th:src="@{${autorPreferido.fotoPath}}" class="card-img-top rounded" th:alt="${autorPreferido.nombre}" style="max-width:100%;"></a>
+						   <div class="card-body">
+							 <h6 class="card-title text-center"><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${autorPreferido.id})}" th:text="${autorPreferido.nombre}"> nombre </a></h6>
+						   </div>
+					</div>
+				</div>
+			</div>
 
-			<ul th:each="estado: ${estados}">
+			<div th:each="estado: ${estados}" class="btn-group">
 				<a class="btn btn-primary" th:text="${estado.nombre}" th:href="@{/usuario/ver/{usuario}/{estado}(usuario=${usuario.nombreUsuario}, estado=${estado.id})}"></a>
-			</ul>
+			</div>
+
+			
 		</section>
 		
 		<footer th:replace="../fragments/footer.html :: footer"></footer>

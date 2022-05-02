@@ -41,7 +41,7 @@
 				</div>
 				
 				<div th:case="true">
-					<h4>Este usuario todavía no tiene libros leídos.</h4>
+					<h4>Este usuario todavía no tiene libros en estado ' <span th:text="${estado.nombre}" th:remove="tag"></span>'.</h4>
 				</div>
 			</div>
 		</div>
