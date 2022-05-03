@@ -18,7 +18,10 @@ import com.carlos.model.Libro;
 public interface LibroDAO extends JpaRepository<Libro, String> {
 
 	@Query(value="SELECT * FROM libro WHERE autor_id = :id", nativeQuery = true)
-	List<Libro> listarLibros(@Param("id") Integer id);
+	List<Libro> listarLibrosPorAutor(@Param("id") Integer id);
+
+	@Query(value="SELECT * FROM libro WHERE autor_id = :id", nativeQuery = true)
+	Page<Libro> listarLibrosPorAutor(@Param("id") Integer id, Pageable pageable);
 
 	@Query(value="SELECT * FROM libro WHERE genero_codigo = :codigo", nativeQuery = true)
 	List<Libro> listarLibrosPorGenero(@Param("codigo") String codigo);

@@ -39,7 +39,12 @@ public class ServiceLibro implements IServiceLibro {
 
 	@Override
 	public List<Libro> listarLibrosAutor(Integer id) {
-		return (List<Libro>) libroDAO.listarLibros(id);
+		return (List<Libro>) libroDAO.listarLibrosPorAutor(id);
+	}
+	
+	@Override
+	public Page<Libro> listarLibrosAutor(Integer id, Pageable pageable) {
+		return (Page<Libro>) libroDAO.listarLibrosPorAutor(id, pageable);
 	}
 
 	@Override

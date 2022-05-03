@@ -20,7 +20,6 @@ public interface AutorDAO extends JpaRepository<Autor, Integer> {
 	@Query(value="SELECT a.* FROM seguir s JOIN autor a ON s.autor_id=a.id GROUP BY a.id ORDER BY count(s.autor_id) DESC", nativeQuery = true)
     List<Autor> listarAutoresMasSeguidos();
 
-	// Busca artistas que empiezen por el string dado. Hecho para paginar la búsqueda
 	Page<Autor> findByNombreContaining(Pageable pageable, String nombre);
 
 	@Query(value="SELECT a.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn JOIN autor a ON l.autor_id=a.id WHERE leu.usuario_nombre_usuario = :nombreUsuario GROUP BY autor_id ORDER BY count(autor_id) DESC LIMIT 1", nativeQuery = true)

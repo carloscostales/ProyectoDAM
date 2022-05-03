@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Autor;
+import com.carlos.model.Libro;
 import com.carlos.model.Seguir;
 import com.carlos.model.Usuario;
 import com.carlos.service.IServiceAutor;
@@ -133,13 +134,31 @@ public class AutorController {
 	}
 	
 	@GetMapping("/ver/{autor}")
-	public ModelAndView verAutor(@PathVariable Autor autor, Authentication auth) {
+	public ModelAndView verAutor(@PathVariable Autor autor, @RequestParam Map<String, Object> params, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("autor", autor);
 		mav.addObject("seguir", new Seguir());
-		mav.addObject("libros", libroService.listarLibrosAutor(autor.getId()));
 		mav.addObject("numeroSeguidores", seguirService.numeroSeguidores(autor.getId()));
+		
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+		PageRequest pageRequest = PageRequest.of(page, 6);
+
+		Page<Libro> pageLibro = (Page<Libro>) libroService.listarLibrosAutor(autor.getId(), pageRequest);
+
+		int totalPage = pageLibro.getTotalPages();
+
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+		
+		mav.addObject("libros", pageLibro.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

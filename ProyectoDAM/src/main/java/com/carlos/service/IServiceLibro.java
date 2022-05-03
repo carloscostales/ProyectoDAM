@@ -19,6 +19,8 @@ public interface IServiceLibro {
 	
 	public List<Libro> listarLibrosAutor(Integer id);
 
+	public Page<Libro> listarLibrosAutor(Integer id, Pageable pageable);
+
 	public List<Libro> listarLibrosPorGenero(String codigo);
 	
 	public Page<Libro> listarLibrosPorGenero(String codigo, Pageable pageable);
