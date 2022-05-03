@@ -110,7 +110,7 @@ public class GeneroController {
 			mav.addObject("usuario", usuario);
 		}
 		
-		mav.addObject("busqueda", new Genero());
+		mav.addObject("nuevaBusqueda", new Genero());
 		mav.setViewName("genero/busquedaGenero");
 		return mav;
 	}

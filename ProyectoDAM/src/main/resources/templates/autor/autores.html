@@ -7,7 +7,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<div th:replace="../fragments/head.html :: head" th:remove="tag"/>  
-
 	</head>
 	
 	<body>
@@ -30,8 +29,6 @@
 				<hr class="my-3">
 			</div>
 
-			
-
 			<div class="row row-cols-6 g-4">
 				<div class="col" th:each="autor: ${listaAutores}">
 				    <div class="card h-100 bg-transparent border-0">
@@ -50,13 +47,13 @@
 					<nav aria-label="Pagination bg-transparent">
 						<ul class="pagination justify-content-center bg-transparent">
 							<li class="page-item bg-transparent" th:classappend="${prev == 0 ? 'disabled': ''}">
-								<a class="page-link" th:href="@{| /autor/autores/?page=${prev} |}">Anterior</a>
+								<a class="page-link" th:href="@{/autor/autores(page=${prev})}">Anterior</a>
 							</li>
 							<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
-								<a class="page-link" th:href="@{| /autor/autores/?page=${page} |}" th:text="${page}"></a>
+								<a class="page-link" th:href="@{/autor/autores(page=${page})}" th:text="${page}"></a>
 							</li>
 							<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
-								<a class="page-link" th:href="@{| /autor/autores/?page=${next} |}">Siguiente</a>
+								<a class="page-link" th:href="@{/autor/autores(page=${next})}">Siguiente</a>
 							</li>
 							</ul>
 					</nav>

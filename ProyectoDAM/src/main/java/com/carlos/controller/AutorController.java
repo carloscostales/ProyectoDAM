@@ -94,7 +94,6 @@ public class AutorController {
 	private ModelAndView buscarPorAutor(@RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Autor busqueda, Authentication auth) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("autor/busquedaAutor");
 		mav.addObject("busqueda", busqueda);
 		
 		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
@@ -126,6 +125,10 @@ public class AutorController {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
+
+		mav.addObject("nuevaBusqueda", new Autor());
+		
+		mav.setViewName("autor/busquedaAutor");
 		return mav;
 	}
 	
