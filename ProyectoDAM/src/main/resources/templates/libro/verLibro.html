@@ -53,8 +53,9 @@
 			</div>
 
 			<h3>También te podría interesar...</h3>
+			<hr>
 			<div class="row">
-				<div class="row row-cols-6 g-4">
+				<div class="row row-cols-6 g-4 mt-1">
 					<div class="col" th:each="libro, iterStat : ${librosGenero}" th:if="${iterStat.index}<6">
 					    <div class="card h-100 bg-transparent border-0">
 					    	<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>
@@ -68,6 +69,7 @@
 			</div>
 			
 			<h3>FICHA</h3>
+			<hr>
 			<ul class="list-group list-group-flush mb-5">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Título: </b><span th:text="${libro.titulo}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>ISBN: </b><span th:text="${libro.isbn}"></span></li>
@@ -79,6 +81,7 @@
 			</ul>
 
 			<h3 class="mb-3">ESCRITO POR...</h3>
+			<hr>
 			<div class="row mb-5">
 				<div class="col">
 					<div class="row">
@@ -86,8 +89,8 @@
 							<a th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}"><img th:src="@{${libro.autor.fotoPath}}" class="card-img-top rounded" th:alt="${libro.autor.nombre}"></a>
 						</div>
 						<div class="col-10">
-							<h4><a class="text-decoration-none" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}"> autor nombre </a></h4>
-							<p class="text-muted">Nº de seguidores: <span th:text="${numeroSeguidores}" th:remove="tag"</p>
+							<h4><a class="text-decoration-none stretched" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}"> autor nombre </a></h4>
+							<p class="text-muted">Nº de seguidores: <span th:text="${numeroSeguidores}" th:remove="tag"></span></p>
 							<p th:text="${libro.autor.bio}" class="text-truncate" style="white-space: pre-line;"> bio </p>
 						</div>
 					</div>
@@ -96,20 +99,21 @@
 					<h4 class="mb-3">Libro destacado</h4>
 					<div class="row">
 						<div class="col-5">
-							<img th:src="${libroDestacado.portadaPath}" class="rounded" th:alt="${libroDestacado.titulo}" style="max-width:100%;" >
+							<a th:href="@{/libro/ver/{libro}(libro=${libroDestacado.isbn})}"><img th:src="${libroDestacado.portadaPath}" class="rounded" th:alt="${libroDestacado.titulo}" style="max-width:100%;" ></a>
 						</div>
 						<div class="col-7">
 							<h5 th:text="${libroDestacado.titulo}"></h5>
-							<p th:text="${libroDestacado.autor.nombre}" class="text-muted"></p>
-							<p th:text="${libroDestacado.genero.nombre}" class="text-muted"></p>
+							<p><a th:href="@{/autor/ver/{autor}(autor=${libroDestacado.autor.id})}" th:text="${libroDestacado.autor.nombre}" class="text-muted text-decoration-none"></a></p>
+							<p><a th:href="@{/genero/ver/{genero}(genero=${libroDestacado.genero.codigo})}" th:text="${libroDestacado.genero.nombre}" class="text-muted text-decoration-none"></a></p>
 						</div>
 					</div>
 				</div>
 			</div>
 			
 			<h2>Más libros de este autor</h2>
+			<hr>
 			<div class="row">
-				<div class="row row-cols-6 g-4">
+				<div class="row row-cols-6 g-4 mt-1">
 					<div class="col" th:each="libro, iterStat : ${librosAutor}" th:if="${iterStat.index}<6">
 					    <div class="card h-100 bg-transparent border-0">
 					    	<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>

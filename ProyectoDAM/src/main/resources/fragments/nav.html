@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-quaternary py-4">
+<nav class="navbar navbar-expand-lg bg-quaternary py-3">
 	<div class="container-fluid">
 		<a class="navbar-brand" th:href="@{/}">LOGO</a>
 		
@@ -14,23 +14,18 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/usuario/usuarios}" th:classappend="${#httpServletRequest.getRequestURI() == '/usuario/usuarios' ? 'active':''}">
-						Lista de usuarios
-					</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link" th:href="@{/genero/generos}" th:classappend="${#httpServletRequest.getRequestURI() == '/genero/generos' ? 'active':''}">
-						Lista de géneros
+						Géneros
 					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/autor/autores}" th:classappend="${#httpServletRequest.getRequestURI() == '/autor/autores' ? 'active':''}">
-						Lista de autores
+						Autores
 					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/libro/libros}" th:classappend="${#httpServletRequest.getRequestURI() == '/libro/libros' ? 'active':''}">
-						Lista de libros
+						Libros
 					</a>
 				</li>
 			</ul>
@@ -41,8 +36,6 @@
 			</div>
 
     		<div class="text-white btn-group dropstart" sec:authorize="isAuthenticated()">
-    			<!--  User: <span sec:authentication="name">miquel</span> -->
-				
 				<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     				<span sec:authentication="name">USUARIO</span>
   				</button>

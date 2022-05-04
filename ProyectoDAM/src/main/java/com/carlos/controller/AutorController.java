@@ -59,7 +59,7 @@ public class AutorController {
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
 
 		// Pagina que vamos a buscar y cuantos registros cargamos por página.
-		PageRequest pageRequest = PageRequest.of(page, 6);
+		PageRequest pageRequest = PageRequest.of(page, 18);
 
 		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
 		Page<Autor> pageAutor = (Page<Autor>) autorService.listarAutores(pageRequest);
@@ -101,7 +101,7 @@ public class AutorController {
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
 
 		// Pagina que vamos a buscar y cuantos registros cargamos por página.
-		PageRequest pageRequest = PageRequest.of(page, 6);
+		PageRequest pageRequest = PageRequest.of(page, 18);
 
 		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
 		Page<Autor> pageAutor = (Page<Autor>) autorService.buscarPorNombre(pageRequest, nombre);

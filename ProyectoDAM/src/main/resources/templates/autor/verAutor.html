@@ -52,21 +52,23 @@
 			</div>
 			
 			<h2>DATOS</h2>
+			<hr>
 			<ul class="list-group list-group-flush mb-5">
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Nombre: </b><span th:text="${autor.nombre}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Pais: </b><span th:text="${autor.pais}"></span></li>
 				<li class="list-group-item list-group-item-action bg-transparent"><b>Fecha de nacimiento: </b><span th:text="${autor.fechaNacimiento}"></span></li>
 			</ul>
 			
-			<h2 class="mb-5">OBRAS</h2>
+			<h2>OBRAS</h2>
+			<hr>
 			<div th:switch="${#lists.isEmpty(libros)}">
 				<div th:case="false">
 					<div th:each="libro: ${libros}" id="libro" class="row mb-5 py-2">
 						<div class="col-lg-2 col-3">
-							<img th:src="@{${libro.portadaPath}}" style="max-width:100%;">
+							<a th:href="@{/libro/ver/{isbn}(isbn=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" style="max-width:100%;"></a>
 						</div>
 						<div class="col-lg-10 col-9">
-							<h3 th:text="${libro.titulo}"></h3>
+							<h3><a th:href="@{/libro/ver/{isbn}(isbn=${libro.isbn})}" th:text="${libro.titulo}" class="text-decoration-none"> titulo </a></h3>
 							<p th:text="${libro.autor.nombre}"></p>
 							<p th:text="${libro.sinopsis}" id="sinopsis" class="text-truncate" style="white-space: pre-line;"></p>
 							
