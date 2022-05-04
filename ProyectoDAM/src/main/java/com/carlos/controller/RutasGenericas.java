@@ -23,37 +23,36 @@ public class RutasGenericas {
 	@GetMapping("/")
 	public ModelAndView index(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("index");
-
-		mav.addObject("autoresSeguidos", autorService.listarAutoresMasSeguidos());
-		mav.addObject("librosRecientes", libroService.listarLibrosCreatedAtDesc());
-		mav.addObject("autoresRecientes", autorService.listarAutoresCreatedAtDesc());
-
-		System.out.println(autorService.listarAutoresCreatedAtDesc().size());
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
 
+		mav.addObject("librosSeguidos", libroService.listarLibrosMasSeguidos());
+		mav.addObject("autoresSeguidos", autorService.listarAutoresMasSeguidos());
+		mav.addObject("autoresRecientes", autorService.listarAutoresCreatedAtDesc());
+		mav.addObject("librosRecientes", libroService.listarLibrosCreatedAtDesc());
+
+		mav.setViewName("index");
 		return mav;
 	}
 
 	@GetMapping("/login")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
 		
+		mav.setViewName("login");
 		return mav;
 	}
 	
 	@GetMapping("/login-error")
 	public ModelAndView loginError() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
 		
 		boolean loginError = true;
 		mav.addObject("loginError", loginError);
 		
+		mav.setViewName("login");
 		return mav;
 	}
 }

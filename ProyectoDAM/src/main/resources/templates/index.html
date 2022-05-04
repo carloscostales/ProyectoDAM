@@ -1,6 +1,6 @@
 <html>
 	<head>
-	    <title>Index</title>
+	    <title>Principal - BookshelfDB</title>
 	    
 	    <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,16 +14,34 @@
 		<section class="container mt-3">
 			<h1 class="text-center"> ¡Bienvenido! </h1>
 
+			<!-- LIBROS MAS POPULARES -->
+			<div class="row mb-3">
+				<h2 class="col-lg-11 col-md-10 col-9">Libros más populares</h2>
+				<div class="col-lg-1 col-md-2 col-3 align-self-center">
+					<a class="float-end " th:href="@{/libro/libros}">Ver más</a>
+				</div>
+				<hr class="my-3">
+			</div>
+			<div class="row row-cols-6 g-4 mb-5">
+				<div class="col" th:each="libro, iterStat: ${librosSeguidos}" th:if="${iterStat.index}<6">
+					<div class="card h-100 bg-transparent border-0">
+						<a th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}"><img th:src="@{${libro.portadaPath}}" class="card-img-top rounded" th:alt="${libro.titulo}"></a>
+						<div class="card-body">
+								<h5 class="card-title"><a class="text-decoration-none text-truncate-2" th:href="@{/libro/ver/{libro}(libro=${libro.isbn})}" th:text="${libro.titulo}"> titulo </a></h6>
+								<p class="text-muted"><a class="text-decoration-none text-muted" th:href="@{/autor/ver/{autor}(autor=${libro.autor.id})}" th:text="${libro.autor.nombre}">autor</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- AUTORES MAS SEGUIDOS -->
 			<div class="row mb-3">
 				<h2 class="col-lg-11 col-md-10 col-9">Autores más seguidos</h2>
 				<div class="col-lg-1 col-md-2 col-3 align-self-center">
 					<a class="float-end " th:href="@{/autor/autores}">Ver más</a>
 				</div>
-
 				<hr class="my-3">
 			</div>
-
 			<div class="row row-cols-6 g-4 mb-5">
 				<div class="col" th:each="autor, iterStat: ${autoresSeguidos}" th:if="${iterStat.index}<6">
 				    <div class="card h-100 bg-transparent border-0">
@@ -41,10 +59,8 @@
 				<div class="col-lg-1 col-md-2 col-3 align-self-center">
 					<a class="float-end " th:href="@{/libro/libros}">Ver más</a>
 				</div>
-				
 				<hr class="my-3">
 			</div>
-			
 			<div class="row row-cols-6 g-4 mb-5">
 				<div class="col" th:each="libro, iterStat: ${librosRecientes}" th:if="${iterStat.index}<6">
 					<div class="card h-100 bg-transparent border-0">
@@ -63,10 +79,8 @@
 				<div class="col-lg-1 col-md-2 col-3 align-self-center">
 					<a class="float-end " th:href="@{/autor/autores}">Ver más</a>
 				</div>
-
 				<hr class="my-3">
 			</div>
-
 			<div class="row row-cols-6 g-4 mb-5">
 				<div class="col" th:each="autor, iterStat: ${autoresRecientes}" th:if="${iterStat.index}<6">
 				    <div class="card h-100 bg-transparent border-0">

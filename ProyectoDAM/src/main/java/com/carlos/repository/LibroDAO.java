@@ -44,6 +44,9 @@ public interface LibroDAO extends JpaRepository<Libro, String> {
     @Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn WHERE estado_id = :estado AND usuario_nombre_usuario = :nombreUsuario", nativeQuery = true)
 	List<Libro> listarLibrosPorEstadoUsuario(@Param("nombreUsuario") String nombreUsuario, @Param("estado") Integer estado);
 
+	@Query(value="SELECT l.* FROM libro_estado_usuario leu JOIN libro l ON leu.libro_isbn=l.isbn GROUP BY leu.libro_isbn ORDER BY count(libro_isbn) DESC", nativeQuery = true)
+	List<Libro> listarLibrosMasSeguidos();
+
     @Query(value="DELETE FROM libro WHERE isbn = :isbn", nativeQuery=true)
     @Transactional
     @Modifying
