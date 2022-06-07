@@ -125,6 +125,30 @@
 					</div>
 				</div>
 			</div>
+
+			<hr>
+			<h2>Valoraciones</h2>
+			<form th:action="@{/opinion/addOpinion}" th:object="${opinion}" method="post" id="nuevaOpinion" sec:authorize="isAuthenticated()">
+				<div class="d-none">
+					<input type="text" class="form-control" th:value="${libro.isbn}" name="libro" id="libro">
+					<input type="text" class="form-control" th:value="${usuario.nombreUsuario}" name="usuario" id="usuario">
+				</div>
+				<div class="row">
+					<input id="input-4" name="input-4" class="rating rating-loading mb-3" data-show-clear="false" data-show-caption="false" th:field="*{valoracion}" >
+					<div class="col-8 mb-3">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{comentario}"></textarea>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success">Enviar</button>
+			</form>
+
+			<div id="valoraciones">
+				<div class="row" th:each="opinion: ${opiniones}">
+					<p th:text="${opinion.valoracion}"></p>
+					<input class="rating rating-loading valoracion mb-3" data-show-clear="false" data-show-caption="false" th:value="${opinion.valoracion}" >
+					
+				</div>
+			</div>
 		</section>
 		
 		

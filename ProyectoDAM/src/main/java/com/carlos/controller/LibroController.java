@@ -28,11 +28,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Autor;
 import com.carlos.model.Libro;
 import com.carlos.model.LibroEstadoUsuario;
+import com.carlos.model.Opinion;
 import com.carlos.model.Usuario;
 import com.carlos.service.IServiceEstado;
 import com.carlos.service.IServiceGenero;
 import com.carlos.service.IServiceLibro;
 import com.carlos.service.IServiceLibroEstadoUsuario;
+import com.carlos.service.IServiceOpinion;
 import com.carlos.service.IServiceSeguir;
 
 @Controller
@@ -53,6 +55,9 @@ public class LibroController {
 	
 	@Autowired
 	private IServiceSeguir seguirService;
+
+	@Autowired
+	private IServiceOpinion opinionService;
 
 
 	@GetMapping("/libros")
@@ -80,6 +85,9 @@ public class LibroController {
 		mav.addObject("librosAutor", libroService.listarLibrosAutor(libro.getAutor().getId()));
 		mav.addObject("numeroSeguidores", seguirService.numeroSeguidores(libro.getAutor().getId()));
 		mav.addObject("libroDestacado", libroService.libroDestacadoPorAutor(libro.getAutor().getId()));
+
+		mav.addObject("opinion", new Opinion());
+		mav.addObject("opiniones", opinionService.listarOpinionesPorLibro(libro.getIsbn()));
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

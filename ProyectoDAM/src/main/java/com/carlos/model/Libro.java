@@ -87,6 +87,9 @@ public class Libro {
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<LibroEstadoUsuario> libro_estado_usuario = new HashSet<>();
+
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Opinion> Opinion = new HashSet<>();
 	
 
 	public String getIsbn() {

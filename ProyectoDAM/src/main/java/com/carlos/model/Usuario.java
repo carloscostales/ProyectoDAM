@@ -75,6 +75,9 @@ public class Usuario implements UserDetails{
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Seguir> libro_estado_usuario = new HashSet<>();
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Opinion> opinion = new HashSet<>();
+
 	
 	public String getNombreUsuario() {
 		return nombreUsuario;
